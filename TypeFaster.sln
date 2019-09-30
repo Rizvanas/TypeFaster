@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeFaster.GameServices.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeFaster.Persistence", "TypeFaster.Persistence\TypeFaster.Persistence.csproj", "{2CD52E5F-C52B-44D5-9B39-EEFAB99AA8E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeFaster.Common", "TypeFaster.Common\TypeFaster.Common.csproj", "{A3A2EE93-7B52-44B0-A834-5C7C5B730062}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{2CD52E5F-C52B-44D5-9B39-EEFAB99AA8E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CD52E5F-C52B-44D5-9B39-EEFAB99AA8E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CD52E5F-C52B-44D5-9B39-EEFAB99AA8E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3A2EE93-7B52-44B0-A834-5C7C5B730062}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3A2EE93-7B52-44B0-A834-5C7C5B730062}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3A2EE93-7B52-44B0-A834-5C7C5B730062}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3A2EE93-7B52-44B0-A834-5C7C5B730062}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
