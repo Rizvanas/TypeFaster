@@ -18,7 +18,7 @@ namespace TypeFaster.Persistence.Repositories
                 throw new FileNotFoundException();
 
             var readText = File.ReadAllText(filepath, Encoding.UTF8);
-            _sentences = ParseFileTextToSentenceList(readText).ToList();
+            _sentences = ParseFileTextToSentenceList(readText);
         }
 
         public IList<Sentence> GetAllSentences()
@@ -37,7 +37,7 @@ namespace TypeFaster.Persistence.Repositories
             {
                 var split_sentence = sentence.Split(@".\");
                 var id = Convert.ToInt32(split_sentence[0]);
-                var words = split_sentence[1];
+                var words = split_sentence[1].Trim().Split(" ");
 
                 return new Sentence { Id = id, Words = words };
             }).ToList();

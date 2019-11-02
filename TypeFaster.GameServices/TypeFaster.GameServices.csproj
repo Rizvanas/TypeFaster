@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TypeFaster.Common\TypeFaster.Common.csproj" />
     <ProjectReference Include="..\TypeFaster.Persistence\TypeFaster.Persistence.csproj" />
   </ItemGroup>
 
