@@ -25,7 +25,7 @@ namespace TypeFaster.GameServices.Implementations
         {
             if (_randomStack.Count == 0)
             {
-                var sentencesCount = _sentenceRepository.SentenceCount;
+                var sentencesCount = _sentenceRepository.SentencesCount;
                 _randomStack = _randomGenerator.GetRandomStack(sentencesCount);
             }
 
