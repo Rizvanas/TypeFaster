@@ -21,6 +21,8 @@ namespace TypeFaster.Persistence.Repositories
             _sentences = ParseFileTextToSentenceList(readText);
         }
 
+        public int SentenceCount { get => _sentences.Count; }
+
         public IList<Sentence> GetAllSentences()
         {
             return _sentences;
