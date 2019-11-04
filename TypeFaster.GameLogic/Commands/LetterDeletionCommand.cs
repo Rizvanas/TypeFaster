@@ -7,14 +7,8 @@ namespace TypeFaster.GameLogic.Commands
     {
         private readonly ITypingRace _typingRace;
 
-        public LetterDeletionCommand(ITypingRace typingRace)
-        {
-            _typingRace = typingRace;
-        }
+        public LetterDeletionCommand(ITypingRace typingRace) => _typingRace = typingRace;
 
-        public void Execute()
-        {
-            _typingRace.DeleteLastLetter();
-        }
+        public void Execute() => _typingRace.DeleteLastLetter();
     }
 }

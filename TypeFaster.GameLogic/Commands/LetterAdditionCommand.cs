@@ -14,9 +14,6 @@ namespace TypeFaster.GameLogic.Commands
             _letter = letter;
         }
 
-        public void Execute()
-        {
-            _typingRace.InsertNewLetter(_letter);
-        }
+        public void Execute() => _typingRace.InsertNewLetter(_letter);
     }
 }
