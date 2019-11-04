@@ -6,5 +6,7 @@ namespace TypeFaster.GameServices.Contracts
 {
     public interface ITypingRace
     {
+        void InsertNewLetter(char letter);
+        void DeleteLastLetter();
     }
 }
