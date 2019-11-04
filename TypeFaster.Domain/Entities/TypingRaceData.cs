@@ -11,6 +11,7 @@ namespace TypeFaster.Domain.Entities
         public Sentence Sentence { get; set; }
         public Sentence UserInput { get; set; }
         public int TotalKeyStrokes { get; set; }
-        public IDictionary<int, string> Typos { get; set; }
+        public IDictionary<int, string> Typos 
+        { get; set; } = new Dictionary<int, string>();
     }
 }
