@@ -2,21 +2,22 @@
 using System.Collections.Generic;
 using System.Text;
 using TypeFaster.GameLogic.Contracts;
+using TypeFaster.GameServices.Contracts;
 
 namespace TypeFaster.GameLogic.Commands
 {
     public class LetterDeletionCommand : ICommand
     {
-        private  _letterDeletionHandler;
+        private readonly ITypingRace _typingRace;
 
-        public LetterDeletionCommand(LetterDeletionHandler letterDeletionHandler)
+        public LetterDeletionCommand(ITypingRace typingRace)
         {
-            _letterDeletionHandler = letterDeletionHandler;
+            _typingRace = typingRace;
         }
 
         public void Execute()
         {
-            _letterDeletionHandler.DeleteLetter();
+            _typingRace.DeleteLastLetter();
         }
     }
 }

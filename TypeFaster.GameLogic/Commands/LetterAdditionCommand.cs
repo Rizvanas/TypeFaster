@@ -1,24 +1,22 @@
-﻿using TypeFaster.Domain.Entities;
-using TypeFaster.GameLogic.CommandHandlers;
-using TypeFaster.GameLogic.Contracts;
+﻿using TypeFaster.GameLogic.Contracts;
+using TypeFaster.GameServices.Contracts;
 
 namespace TypeFaster.GameLogic.Commands
 {
     public class LetterAdditionCommand : ICommand
     {
-        private readonly LetterAdditionHandler _letterAdditionHandler;
-        private readonly string _letter;
-        private readonly string _userInput;
+        private readonly ITypingRace _typingRace;
+        private readonly char _letter;
 
-        public LetterAdditionCommand(LetterAdditionHandler letterAdditionHandler, string letter, string userInput)
+        public LetterAdditionCommand(ITypingRace typingRace, char letter)
         {
-            _letterAdditionHandler = letterAdditionHandler;
+            _typingRace = typingRace;
             _letter = letter;
         }
 
         public void Execute()
         {
-            _letterAdditionHandler.AddLetter(_letter);
+            _typingRace.InsertNewLetter(_letter);
         }
     }
 }
