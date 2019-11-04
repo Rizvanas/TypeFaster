@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TypeFaster.Domain.Entities;
+﻿using TypeFaster.Domain.Entities;
 using TypeFaster.GameServices.Contracts;
 using TypeFaster.GameServices.Implementations;
 

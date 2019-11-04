@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TypeFaster.GameLogic.Contracts;
+﻿using TypeFaster.GameLogic.Contracts;
 using TypeFaster.GameServices.Contracts;
 
 namespace TypeFaster.GameLogic.Commands
