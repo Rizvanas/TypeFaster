@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using TypeFaster.Domain.Entities;
 using TypeFaster.GameLogic.CommandHandlers;
-using TypeFaster.GameLogic.Commands.Abstract;
+using TypeFaster.GameLogic.Contracts;
 
 namespace TypeFaster.GameLogic.Commands
 {
@@ -10,8 +8,9 @@ namespace TypeFaster.GameLogic.Commands
     {
         private readonly LetterAdditionHandler _letterAdditionHandler;
         private readonly string _letter;
+        private readonly string _userInput;
 
-        public LetterAdditionCommand(LetterAdditionHandler letterAdditionHandler, string letter)
+        public LetterAdditionCommand(LetterAdditionHandler letterAdditionHandler, string letter, string userInput)
         {
             _letterAdditionHandler = letterAdditionHandler;
             _letter = letter;
