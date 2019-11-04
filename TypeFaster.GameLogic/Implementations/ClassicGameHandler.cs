@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TypeFaster.Domain.Contracts;
 using TypeFaster.Domain.Entities;
 using TypeFaster.GameServices.Contracts;
+using TypeFaster.GameServices.Implementations;
 
 namespace TypeFaster.GameLogic.Implementations
 {
@@ -25,14 +25,16 @@ namespace TypeFaster.GameLogic.Implementations
         public override ITypingRace CreateTypingRace()
         {
             var randomSentence = _sentenceLoader.GetNextRandomSentence();
-
-            return new ClassicTypingRace
+            var typingRaceData = new TypingRaceData
             {
                 Title = "Classic Game",
                 StartTime = _timeService.GetGameStartTime(),
                 EndTime = _timeService.GetGameEndTime(randomSentence),
                 Sentence = randomSentence,
+                UserInput = new Sentence()
             };
+
+            return new ClassicTypingRace(typingRaceData);
         }
     }
 }
