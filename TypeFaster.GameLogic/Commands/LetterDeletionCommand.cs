@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TypeFaster.GameLogic.CommandHandlers;
-using TypeFaster.GameLogic.Commands.Abstract;
+using TypeFaster.GameLogic.Contracts;
 
 namespace TypeFaster.GameLogic.Commands
 {
     public class LetterDeletionCommand : ICommand
     {
-        private readonly LetterDeletionHandler _letterDeletionHandler;
+        private  _letterDeletionHandler;
 
         public LetterDeletionCommand(LetterDeletionHandler letterDeletionHandler)
         {

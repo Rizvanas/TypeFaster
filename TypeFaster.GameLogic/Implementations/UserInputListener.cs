@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TypeFaster.GameLogic.Commands.Abstract;
+using TypeFaster.GameLogic.Contracts;
 
 namespace TypeFaster.GameLogic.Implementations
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TypeFaster.Domain.Contracts;
+using TypeFaster.Domain.Entities;
 using TypeFaster.GameServices.Contracts;
 
 namespace TypeFaster.GameLogic.Implementations
