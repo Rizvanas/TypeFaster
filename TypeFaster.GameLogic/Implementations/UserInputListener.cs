@@ -5,19 +5,17 @@ using TypeFaster.GameLogic.Contracts;
 
 namespace TypeFaster.GameLogic.Implementations
 {
-    public class UserInputListener
+    public class UserInputListener : IUserInputListener
     {
         private ICommand _onLetterOrSymbolPressed;
         private ICommand _onBackspacePressed;
 
-        public void SetOnLetterOnSymbolPressed(ICommand command)
-        {
-            _onLetterOrSymbolPressed = command;
-        }
+        public void SetOnLetterOnSymbolPressed(ICommand command) => _onLetterOrSymbolPressed = command;
+        public void SetOnBackspacePressed(ICommand command) => _onBackspacePressed = command;
 
-        public void SetOnBackspacePressed(ICommand command)
+        public void Listen()
         {
-            _onBackspacePressed = command;
+
         }
     }
 }

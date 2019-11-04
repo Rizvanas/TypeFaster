@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TypeFaster.Domain.Entities;
 using TypeFaster.GameServices.Contracts;
 
 namespace TypeFaster.GameLogic.Implementations
@@ -19,6 +18,7 @@ namespace TypeFaster.GameLogic.Implementations
 
         public bool Run(bool shouldRun)
         {
+            var typingRace = CreateTypingRace();
             return shouldRun;
         }
     }
