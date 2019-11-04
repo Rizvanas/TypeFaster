@@ -11,7 +11,6 @@ namespace TypeFaster.GameServices.Implementations
     {
         public KeyValuePair<int, string> GetUserInputErrors (Sentence userInput, Sentence sentence)
         {
-            if (sentence.Words.Last().StartsWith(userInput.Words.Last))
                 
         }
     }

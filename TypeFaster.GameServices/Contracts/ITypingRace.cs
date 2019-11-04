@@ -8,5 +8,6 @@ namespace TypeFaster.GameServices.Contracts
     {
         void InsertNewLetter(char letter);
         void DeleteLastLetter();
+
     }
 }
