@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TypeFaster.Domain.Entities;
+﻿using System.Collections.Generic;
 
 namespace TypeFaster.GameServices.Contracts
 {
     public interface IUserInputEvaluator
     {
-        KeyValuePair<int, string> GetUserInputError(Sentence userInput, Sentence sentence);
+        IList<KeyValuePair<int, string>> GetInputErrors(IList<string> userInput, IList<string> sentence);
     }
 }
