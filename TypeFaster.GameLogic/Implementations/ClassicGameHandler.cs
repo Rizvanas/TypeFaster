@@ -10,7 +10,7 @@ namespace TypeFaster.GameLogic.Implementations
         private readonly ISentenceLoader _sentenceLoader;
 
         public ClassicGameHandler(
-            UserInputListener userInputListener,
+            UserInputHandler userInputListener,
             ITimeService timeService,
             ISentenceLoader sentenceLoader) 
             : base(userInputListener)

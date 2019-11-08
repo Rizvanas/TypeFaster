@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TypeFaster.GameLogic.Commands;
 using TypeFaster.GameServices.Contracts;
 
 namespace TypeFaster.GameLogic.Implementations
 {
     public abstract class GameHandler
     {
-        protected readonly UserInputListener _userInputListener;
+        protected readonly UserInputHandler _userInputListener;
 
-        protected GameHandler(UserInputListener userInputListener)
+        protected GameHandler(UserInputHandler userInputListener)
         {
             _userInputListener = userInputListener;
         }
@@ -18,7 +19,7 @@ namespace TypeFaster.GameLogic.Implementations
 
         public bool Run(bool shouldRun)
         {
-            var typingRace = CreateTypingRace();
+            _userInputListener.SetTypingRace(CreateTypingRace());
             return shouldRun;
         }
     }
