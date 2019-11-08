@@ -13,7 +13,6 @@ namespace TypeFaster.GameLogic.Contracts
             _userInputHandler = userInputHandler;
         }
         
-
-
+        public abstract void Listen();
     }
 }
