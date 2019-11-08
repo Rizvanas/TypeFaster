@@ -7,17 +7,20 @@ using TypeFaster.GameServices.Contracts;
 
 namespace TypeFaster.GameServices.Implementations
 {
-    public class ClassicTypingRace : ITypingRace
+    public class ClassicTypingRace : ITypingRace, IObservable
     {
         private readonly TypingRaceData _typingRaceData;
+        private readonly List<IObserver> _observers;
 
         public ClassicTypingRace(TypingRaceData typingRaceData)
         {
             _typingRaceData = typingRaceData;
+            _observers = new List<IObserver>();
         }
 
         public void InsertNewLetter(char letter)
         {
+
             if (letter == ' ')
             {
                 _typingRaceData.UserInput.Words.Add("");
@@ -26,6 +29,8 @@ namespace TypeFaster.GameServices.Implementations
             {
                 _typingRaceData.UserInput.Words.Last().Append(letter);
             }
+
+            Notify();
         }
 
         public void DeleteLastLetter()
@@ -41,7 +46,26 @@ namespace TypeFaster.GameServices.Implementations
             {
                 _typingRaceData.UserInput.Words[lastWordIndex] = lastWord.Remove(lastWord.Length - 1);
             }
+
+            Notify();
         }
 
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
+
+        public void Notify()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
     }
 }
