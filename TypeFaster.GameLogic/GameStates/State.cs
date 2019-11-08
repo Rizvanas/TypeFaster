@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TypeFaster.GameLogic.Contracts;
 
-namespace TypeFaster.GameLogic.Contracts
+namespace TypeFaster.GameLogic.GameStates
 {
-    public abstract class GameState
+    public abstract class State
     {
         protected IUserInputHandler _userInputHandler;
 
@@ -12,7 +13,7 @@ namespace TypeFaster.GameLogic.Contracts
         {
             _userInputHandler = userInputHandler;
         }
-        
+
         public abstract void Listen();
     }
 }
