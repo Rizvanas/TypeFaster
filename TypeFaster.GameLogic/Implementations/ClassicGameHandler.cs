@@ -1,21 +1,29 @@
-﻿using TypeFaster.Domain.Entities;
+﻿using System.Timers;
+using TypeFaster.Domain.Entities;
 using TypeFaster.GameServices.Contracts;
 using TypeFaster.GameServices.Implementations;
+using TypeFaster.UI.Contracts;
 
 namespace TypeFaster.GameLogic.Implementations
 {
     public class ClassicGameHandler : GameHandler
     {
         private readonly ITimeService _timeService;
+        private readonly ITypingCalculator _typingCalculator;
         private readonly ISentenceLoader _sentenceLoader;
 
         public ClassicGameHandler(
-            UserInputHandler userInputListener,
+            InputListener userInputListener,
+            InputHandler inputHandler,
             ITimeService timeService,
-            ISentenceLoader sentenceLoader) 
-            : base(userInputListener)
+            ITypingCalculator typingCalculator,
+            ISentenceLoader sentenceLoader,
+            IGameRenderer gameRenderer,
+            Timer timer) 
+            : base(userInputListener, inputHandler, gameRenderer, timer)
         {
             _timeService = timeService;
+            _typingCalculator = typingCalculator;
             _sentenceLoader = sentenceLoader;
         }
 
@@ -28,10 +36,15 @@ namespace TypeFaster.GameLogic.Implementations
                 StartTime = _timeService.GetGameStartTime(),
                 EndTime = _timeService.GetGameEndTime(randomSentence),
                 Sentence = randomSentence,
-                UserInput = new Sentence()
+                UserInput = "",
             };
 
-            return new ClassicTypingRace(typingRaceData);
+            var typingRace = new ClassicTypingRace(typingRaceData, _typingCalculator);
+            typingRace.Subscribe(_inputHandler);
+            typingRace.Subscribe(_gameRenderer);
+            _timer.Elapsed += typingRace.OnTimerIntervalEnd;
+
+            return typingRace;
         }
     }
 }

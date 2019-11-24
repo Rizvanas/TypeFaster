@@ -14,6 +14,8 @@ namespace TypeFaster.Persistence.Repositories
 
         public SentenceTxtFileRepository(string filepath)
         {
+            filepath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName, filepath);
+
             if (!File.Exists(filepath))
                 throw new FileNotFoundException();
 
@@ -35,11 +37,11 @@ namespace TypeFaster.Persistence.Repositories
 
         private  IList<Sentence> ParseFileTextToSentenceList(string text)
         {
-            var sentences = text.Split(";\n").Select(sentence =>
+            var sentences = text.Split(";\r\n").Select(sentence =>
             {
-                var split_sentence = sentence.Split(@".\");
+                var split_sentence = sentence.Split(@". ", 2);
                 var id = Convert.ToInt32(split_sentence[0]);
-                var words = split_sentence[1].Trim().Split(" ");
+                var words = split_sentence[1].Trim();
 
                 return new Sentence { Id = id, Words = words };
             }).ToList();

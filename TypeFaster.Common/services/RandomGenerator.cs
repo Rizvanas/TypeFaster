@@ -18,7 +18,7 @@ namespace TypeFaster.Common.services
 
         public Stack<int> GetRandomStack(int length)
         {
-            return Enumerable.Range(0, length)
+            return Enumerable.Range(1, length)
                 .Shuffle(_random)
                 .ToStack();
         }

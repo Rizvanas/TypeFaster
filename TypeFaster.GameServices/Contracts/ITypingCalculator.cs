@@ -5,8 +5,8 @@ namespace TypeFaster.GameServices.Contracts
 {
     public interface ITypingCalculator
     {
-        int GetNetTypingSpeed(Sentence userInput, DateTime startTime, int totalErrorsMade);
-        int GetGrossTypingSpeed(Sentence userInput, DateTime startTime);
-        decimal GetTypingAccuracy(Sentence userInput, DateTime startTime, int totalErrorsMade);
+        int GetNetTypingSpeed(string userInput, DateTime startTime, int totalErrorsMade);
+        int GetGrossTypingSpeed(string userInput, DateTime startTime);
+        decimal GetTypingAccuracy(string userInput, DateTime startTime, int totalErrorsMade);
     }
 }

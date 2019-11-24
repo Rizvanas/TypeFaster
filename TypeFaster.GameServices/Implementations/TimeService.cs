@@ -41,7 +41,7 @@ namespace TypeFaster.GameServices.Implementations
 
         private TimeSpan CalculateGameDuration(Sentence sentence)
         {
-            var sentenceWordCount = sentence.Words.Count;
+            var sentenceWordCount = sentence.Words.Split().Length;
             return TimeSpan.FromSeconds(sentenceWordCount * 3);
         }
     }

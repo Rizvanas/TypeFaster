@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using TypeFaster.Domain.ValueObjects;
 
 namespace TypeFaster.GameServices.Contracts
 {
     public interface IObserver
     {
-        void Update();
+        void Update(TypingRaceState typingRaceState);
     }
 }

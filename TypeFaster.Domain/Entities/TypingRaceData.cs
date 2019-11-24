@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TypeFaster.Domain.ValueObjects;
 
 namespace TypeFaster.Domain.Entities
 {
@@ -9,9 +10,10 @@ namespace TypeFaster.Domain.Entities
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public Sentence Sentence { get; set; }
-        public Sentence UserInput { get; set; }
-        public int TotalKeyStrokes { get; set; }
-        public IDictionary<int, string> Typos 
+        public string UserInput { get; set; }
+        public int WordsPerMinute { get; set; }
+        public TypingRaceState State { get; set; }
+        public IDictionary<int, string> Typos
         { get; set; } = new Dictionary<int, string>();
     }
 }

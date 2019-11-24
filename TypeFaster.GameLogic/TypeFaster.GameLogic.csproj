@@ -8,6 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TypeFaster.Domain\TypeFaster.Domain.csproj" />
     <ProjectReference Include="..\TypeFaster.GameServices\TypeFaster.GameServices.csproj" />
+    <ProjectReference Include="..\TypeFaster.UI\TypeFaster.UI.csproj" />
   </ItemGroup>
 
 </Project>

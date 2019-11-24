@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Timers;
 using TypeFaster.Domain.Entities;
+using TypeFaster.Domain.ValueObjects;
 using TypeFaster.GameServices.Contracts;
 
 namespace TypeFaster.GameServices.Implementations
@@ -10,43 +11,75 @@ namespace TypeFaster.GameServices.Implementations
     public class ClassicTypingRace : ITypingRace, IObservable
     {
         private readonly TypingRaceData _typingRaceData;
+        private readonly ITypingCalculator _typingCalculator;
         private readonly List<IObserver> _observers;
 
-        public ClassicTypingRace(TypingRaceData typingRaceData)
+        public string PreErrorInput { get; private set; }
+        public int UserTypingSpeed => _typingRaceData.WordsPerMinute;
+        public string UserInput => _typingRaceData.UserInput;
+        public string Sentence => _typingRaceData.Sentence.Words;
+
+        public TypingRaceState State => _typingRaceData.State;
+
+        public ClassicTypingRace(TypingRaceData typingRaceData, ITypingCalculator typingCalculator)
         {
             _typingRaceData = typingRaceData;
+            _typingCalculator = typingCalculator;
             _observers = new List<IObserver>();
+            PreErrorInput = "";
         }
 
         public void InsertNewLetter(char letter)
         {
-
-            if (letter == ' ')
-            {
-                _typingRaceData.UserInput.Words.Add("");
-            } 
-            else
-            {
-                _typingRaceData.UserInput.Words.Last().Append(letter);
-            }
-
-            Notify();
+            _typingRaceData.UserInput += letter;
         }
 
         public void DeleteLastLetter()
         {
-            var lastWordIndex = _typingRaceData.UserInput.Words.Count - 1; 
-            var lastWord = _typingRaceData.UserInput.Words.Last();
+            var userInput = _typingRaceData.UserInput;
+            var lastWordIndex = userInput.Length - 1;
 
-            if (lastWord == "")
+            if (lastWordIndex != -1)
+                _typingRaceData.UserInput = userInput.Remove(lastWordIndex);
+        }
+
+        public void UpdateTypingSpeed()
+        {
+            var wordsPerMinute = _typingCalculator.GetNetTypingSpeed(
+                userInput: State == TypingRaceState.Error ? 
+                PreErrorInput : _typingRaceData.UserInput,
+                startTime: _typingRaceData.StartTime,
+                totalErrorsMade: _typingRaceData.Typos.Count);
+
+            _typingRaceData.WordsPerMinute = wordsPerMinute;
+        }
+
+        public void UpdateTypoList()
+        {
+            var userInput = _typingRaceData.UserInput.Split(" ");
+            var inputWordIndex = userInput.Length - 1;
+            var word = _typingRaceData.Sentence.Words.Split(" ").ElementAt(inputWordIndex);
+
+            var typoMade = false;
+            if (!word.StartsWith(userInput.ElementAt(inputWordIndex)))
             {
-                _typingRaceData.UserInput.Words.RemoveAt(lastWordIndex);
-            } 
-            else
-            {
-                _typingRaceData.UserInput.Words[lastWordIndex] = lastWord.Remove(lastWord.Length - 1);
+                typoMade = true;
+                _typingRaceData.Typos.TryAdd(inputWordIndex, word);
             }
 
+            if (_typingRaceData.State != TypingRaceState.Error && typoMade)
+            {
+                if (UserInput.Length - 1 != -1)
+                    PreErrorInput = UserInput.Remove(UserInput.Length - 1);
+                UpdateTypingRaceState(TypingRaceState.Error);
+            }
+            else
+                UpdateTypingRaceState(TypingRaceState.Running);
+        }
+
+        public void UpdateTypingRaceState(TypingRaceState state)
+        {
+            _typingRaceData.State = state;
             Notify();
         }
 
@@ -64,7 +97,15 @@ namespace TypeFaster.GameServices.Implementations
         {
             foreach (var observer in _observers)
             {
-                observer.Update();
+                observer.Update(_typingRaceData.State);
+            }
+        }
+
+        public void OnTimerIntervalEnd(Object source, ElapsedEventArgs e)
+        {
+            if (State != TypingRaceState.Error)
+            {
+                UpdateTypingSpeed();
             }
         }
     }
