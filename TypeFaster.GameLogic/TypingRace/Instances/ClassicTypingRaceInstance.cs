@@ -1,9 +1,9 @@
 ﻿using System;
 using TypeFaster.Domain.Entities;
 using TypeFaster.GameLogic.Contracts.Input;
+using TypeFaster.GameLogic.Contracts.Rendering;
 using TypeFaster.GameLogic.Contracts.TypingRace;
 using TypeFaster.GameLogic.TypingRace.States;
-using TypeFaster.UI.Contracts;
 
 namespace TypeFaster.GameLogic.TypingRace.Instances
 {

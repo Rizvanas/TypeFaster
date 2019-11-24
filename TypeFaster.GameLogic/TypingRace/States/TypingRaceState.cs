@@ -1,7 +1,7 @@
 ﻿using System;
 using TypeFaster.GameLogic.Contracts.Input;
+using TypeFaster.GameLogic.Contracts.Rendering;
 using TypeFaster.GameLogic.Contracts.TypingRace;
-using TypeFaster.UI.Contracts;
 
 namespace TypeFaster.GameLogic.TypingRace.States
 {
