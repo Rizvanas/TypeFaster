@@ -1,16 +1,13 @@
-﻿using TypeFaster.GameServices.Contracts;
-using TypeFaster.UI.RenderingStates;
+﻿using TypeFaster.GameLogic.Contracts.TypingRace;
 
-namespace TypeFaster.UI.Contracts
+namespace TypeFaster.GameLogic.Contracts.Rendering
 {
     public interface IGameRenderer
     {
         void SetTypingRaceInstance(ITypingRaceInstance typingRace);
-        void Render();
         void RenderGameWindow();
         void RenderUserInput();
         void RenderPlayerTypingSpeed();
         void RenderPausedStateWindow();
-        void ChangeState(RendererState state);
     }
 }
