@@ -5,7 +5,6 @@ using TypeFaster.Common.services;
 using TypeFaster.GameLogic.Implementations;
 using TypeFaster.GameServices.Implementations;
 using TypeFaster.Persistence.Repositories;
-using TypeFaster.UI.Implementations;
 
 namespace TypeFaster.GameLogic
 {

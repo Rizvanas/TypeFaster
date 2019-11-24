@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using TypeFaster.GameLogic.Contracts.TypingRace;
 
 namespace TypeFaster.GameLogic.TypingRace.States
