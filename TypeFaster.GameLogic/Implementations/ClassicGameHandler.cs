@@ -2,7 +2,6 @@
 using TypeFaster.Domain.Entities;
 using TypeFaster.GameServices.Contracts;
 using TypeFaster.GameServices.Implementations;
-using TypeFaster.UI.Contracts;
 
 namespace TypeFaster.GameLogic.Implementations
 {
@@ -36,7 +35,7 @@ namespace TypeFaster.GameLogic.Implementations
                 StartTime = _timeService.GetGameStartTime(),
                 EndTime = _timeService.GetGameEndTime(randomSentence),
                 Sentence = randomSentence,
-                UserInput = "",
+                UserInput = ""
             };
 
             var typingRace = new ClassicTypingRace(typingRaceData, _typingCalculator);

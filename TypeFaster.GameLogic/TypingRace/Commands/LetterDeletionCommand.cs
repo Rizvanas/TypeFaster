@@ -14,12 +14,11 @@ namespace TypeFaster.GameLogic.TypingRace.Commands
         {
             _deletedLetter = _typingRaceInstance.UserInput.LastOrDefault();
             _typingRaceInstance.DeleteLastLetter();
-            _typingRaceInstance.UpdateTypoList();
         }
 
         public void Undo()
         {
-            _typingRaceInstance.InsertNewLetter(_deletedLetter);
+            _typingRaceInstance.AddNewLetter(_deletedLetter);
         }
     }
 }

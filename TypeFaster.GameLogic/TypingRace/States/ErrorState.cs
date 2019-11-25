@@ -12,7 +12,10 @@ namespace TypeFaster.GameLogic.TypingRace.States
                 _inputHandler.IssueLetterAdditionCommand(keyInfo);
 
             if (keyInfo.Key == ConsoleKey.Backspace)
+            {
                 _inputHandler.IssueLetterDeletionCommand();
+                _inputHandler.IssueErrorStateToggleCommand();
+            }
 
             if (keyInfo.Key == ConsoleKey.Escape)
                 _inputHandler.IssueGameStateChangingCommand(new PausedState());

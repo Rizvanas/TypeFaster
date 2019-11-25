@@ -11,8 +11,6 @@ namespace TypeFaster.Domain.Entities
         public DateTime EndTime { get; set; }
         public Sentence Sentence { get; set; }
         public string UserInput { get; set; }
-        public int WordsPerMinute { get; set; }
-        public TypingRaceState State { get; set; }
         public IDictionary<int, string> Typos
         { get; set; } = new Dictionary<int, string>();
     }

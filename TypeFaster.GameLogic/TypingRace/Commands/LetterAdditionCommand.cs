@@ -1,5 +1,4 @@
-﻿using TypeFaster.Domain.ValueObjects;
-using TypeFaster.GameLogic.Contracts.TypingRace;
+﻿using TypeFaster.GameLogic.Contracts.TypingRace;
 
 namespace TypeFaster.GameLogic.TypingRace.Commands
 {
@@ -20,16 +19,11 @@ namespace TypeFaster.GameLogic.TypingRace.Commands
         public void Execute() 
         {
             _typingRaceInstance.AddNewLetter(_letter);
-            if (_typingRaceInstance.State != TypingRaceState.Error)
-            {
-                _typingRaceInstance.UpdateTypoList();
-            }
         }
 
         public void Undo()
         {
             _typingRaceInstance.DeleteLastLetter();
-            _typingRaceInstance.UpdateTypoList();
         }
     }
 }
