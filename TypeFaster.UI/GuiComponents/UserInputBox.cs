@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace TypeFaster.UI.GuiComponents
 {
@@ -33,14 +32,17 @@ namespace TypeFaster.UI.GuiComponents
             }
         }
 
-        protected override void DrawData(string data)
+        public void UpdateUserInput(string userInput)
+        {
+            UserInput = userInput;
+        }
+
+        protected override void DrawData(string[] data)
         {
             var tempTopPos = TopPos;
             var tempTopPosOffset = 1;
-            var dataForDrawing = GetDataForDrawing(data).ToArray();
-            Height = dataForDrawing.Length;
 
-            foreach (var dataItem in dataForDrawing)
+            foreach (var dataItem in data)
             {
                 var tempLeftPos = LeftPos;
                 foreach (var letter in dataItem)

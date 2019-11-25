@@ -16,7 +16,8 @@ namespace TypeFaster.GameLogic.TypingRace.States
 
         public override void Render(ITypingRaceInstance typingRaceInstance)
         {
-            throw new NotImplementedException();
+            _gameRenderer.RenderGameWindow();
+            _gameRenderer.RenderInitializedStatePrompt();
         }
     }
 }

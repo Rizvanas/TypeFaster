@@ -10,16 +10,18 @@ namespace TypeFaster.GameLogic.Rendering
         private ITypingRaceInstance _typingRaceInstance;
         private TextBox _gameWindow;
         private TextBox _typingSpeedIndicator;
-        private TextBox _pauseStateWindow;
+        private TextBox _promptWindow;
+        private TextBox _initializedStateWindow;
         private UserInputBox _inputBox;
 
         public void SetTypingRaceInstance(ITypingRaceInstance typingRaceInstance)
         {
             _typingRaceInstance = typingRaceInstance;
-            _gameWindow = new TextBox("Game Window", 1, 1, Console.WindowWidth - 1, Console.WindowHeight - 1);
+            _gameWindow = new TextBox("Game Window", 0, 0, Console.WindowWidth - 2, Console.WindowHeight - 2);
             _inputBox = new UserInputBox("Sentence", 20 / 2, 20 / 2, Console.WindowWidth - 20);
             _typingSpeedIndicator = new TextBox("Typing Speed", 106, 5, 4, 2);
-            _pauseStateWindow = new TextBox("Menu", 20 / 2, 20 / 2, Console.WindowWidth - 20);
+            _promptWindow = new TextBox("Menu", 20 / 2, 20 / 2, Console.WindowWidth - 20);
+            _initializedStateWindow = new TextBox("Menu", 20 / 2, 20 / 2, Console.WindowWidth - 20);
         }
 
         public void RenderGameWindow()
@@ -27,9 +29,19 @@ namespace TypeFaster.GameLogic.Rendering
             _gameWindow.Render("");
         }
 
-        public void RenderPausedStateWindow()
+        public void RenderPausedStatePrompt()
         {
-            _pauseStateWindow.Render("If you want to exit press [Enter], If you want to Continue playing, press [Esc]");
+            _promptWindow.Render("Press [Enter] to exit the game, If you want to Continue playing, press [Esc]");
+        }
+
+        public void RenderInitializedStatePrompt()
+        {
+            _promptWindow.Render("Press [Enter] to start a game. If you want to exit the game press [Esc]");
+        }
+
+        public void RenderExitConfirmationPrompt()
+        {
+            _promptWindow.Render("Do you really want to exit the game? [Enter]");
         }
 
         public void RenderPlayerTypingSpeed()
@@ -40,6 +52,7 @@ namespace TypeFaster.GameLogic.Rendering
         public void RenderUserInput()
         {
             SetUserInputColor();
+            _inputBox.UpdateUserInput(_typingRaceInstance.UserInput);
             _inputBox.Render(_typingRaceInstance.Sentence);
         }
 

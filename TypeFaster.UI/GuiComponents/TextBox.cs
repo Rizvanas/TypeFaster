@@ -9,7 +9,6 @@ namespace TypeFaster.UI.GuiComponents
         public string Title { get; set; }
         public ConsoleColor BorderColor { get; set; }
         public ConsoleColor InfoColor { get; set; }
-        protected string previousData = null;
 
         public TextBox(string title, int leftPos, int topPos, int maxWidth, int maxHeight = 0)
             : base(leftPos, topPos, maxWidth, maxHeight)
@@ -21,16 +20,15 @@ namespace TypeFaster.UI.GuiComponents
 
         public override void Render(string data)
         {
-            if (previousData != null && data != previousData)
-            {
-                var previousConsoleColor = Console.ForegroundColor;
-                Console.SetCursorPosition(LeftPos, TopPos);
-                DrawData(data);
-                DrawTopAndBottom();
-                DrawSides();
-            }
+            Console.CursorVisible = false;
+            var previousConsoleColor = Console.ForegroundColor;
+            var dataForDrawing = GetDataForDrawing(data).ToArray();
 
-            previousData = data;
+            Height = Height == 0 ? dataForDrawing.Length + 2 : Height;
+            Console.SetCursorPosition(LeftPos, TopPos);
+            DrawTopAndBottom();
+            DrawSides();
+            DrawData(dataForDrawing);
         }
 
         protected virtual void WriteAt(string s, int left, int top, int x, int y)
@@ -78,13 +76,10 @@ namespace TypeFaster.UI.GuiComponents
             }
         }
 
-        protected virtual void DrawData(string data)
+        protected virtual void DrawData(string[] data)
         {
             var topOffset = 1;
-            var dataForDrawing = GetDataForDrawing(data).ToArray();
-            Height = dataForDrawing.Length;
-
-            foreach (var dataItem in dataForDrawing)
+            foreach (var dataItem in data)
             {
                 WriteAt(dataItem, LeftPos, TopPos, 1, topOffset++);
             }
