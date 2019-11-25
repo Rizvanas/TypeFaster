@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace TypeFaster.UI.GuiComponents
 {
@@ -9,12 +10,11 @@ namespace TypeFaster.UI.GuiComponents
 
         public UserInputBox(
             string title,
-            string info,
             int leftPos, 
             int topPos, 
             int maxWidth, 
             int maxHeight = 0)
-            : base(title, info, leftPos, topPos, maxWidth, maxHeight)
+            : base(title, leftPos, topPos, maxWidth, maxHeight)
         {
             MatchingInputColor = ConsoleColor.DarkGreen;
         }
@@ -33,15 +33,17 @@ namespace TypeFaster.UI.GuiComponents
             }
         }
 
-        protected override void DrawInfo()
+        protected override void DrawData(string data)
         {
             var tempTopPos = TopPos;
             var tempTopPosOffset = 1;
-            
-            foreach (var infoItem in _info)
+            var dataForDrawing = GetDataForDrawing(data).ToArray();
+            Height = dataForDrawing.Length;
+
+            foreach (var dataItem in dataForDrawing)
             {
                 var tempLeftPos = LeftPos;
-                foreach (var letter in infoItem)
+                foreach (var letter in dataItem)
                 {
                     if (tempLeftPos >= LeftPos && 
                         tempLeftPos < LeftPos + UserInput.Length - ((tempTopPosOffset-1) * (Width)) && 

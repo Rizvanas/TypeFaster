@@ -5,42 +5,40 @@ namespace TypeFaster.UI.GuiComponents
 {
     public abstract class GuiComponent
     {
-        protected List<string> _info;
         public int LeftPos { get; set; }
         public int TopPos { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
 
-        public GuiComponent(string info, int leftPos, int topPos, int width, int height)
+        public GuiComponent(int leftPos, int topPos, int width, int height)
         {
             LeftPos = leftPos;
             TopPos = topPos;
             Width = width;
-            _info = GetInfoForDrawing(info).ToList();
-            Height = height == 0 ? _info.Count + 2 : height;
+            Height = height;
         }
 
-        public abstract void Render();
+        public abstract void Render(string data);
 
-        protected IEnumerable<string> GetInfoForDrawing(string info)
+        protected IEnumerable<string> GetDataForDrawing(string data)
         {
             do
             {
-                string infoItem;
-                if (info.Length < Width)
+                string dataItem;
+                if (data.Length < Width)
                 {
-                    infoItem = info;
-                    info = "";
+                    dataItem = data;
+                    data = "";
                 }
                 else
                 {
-                    var indexOfNearestSpace = info.LastIndexOf(' ', Width - 3);
-                    infoItem = info.Substring(0, indexOfNearestSpace + 1);
-                    info = info.Substring(indexOfNearestSpace + 1);
+                    var indexOfNearestSpace = data.LastIndexOf(' ', Width - 3);
+                    dataItem = data.Substring(0, indexOfNearestSpace + 1);
+                    data = data.Substring(indexOfNearestSpace + 1);
                 }
-                yield return infoItem;
+                yield return dataItem;
 
-            } while (info.Length != 0);
+            } while (data.Length != 0);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using TypeFaster.UI.Enums;
 
 namespace TypeFaster.UI.GuiComponents
@@ -8,22 +9,27 @@ namespace TypeFaster.UI.GuiComponents
         public string Title { get; set; }
         public ConsoleColor BorderColor { get; set; }
         public ConsoleColor InfoColor { get; set; }
+        protected string previousData = null;
 
-        public TextBox(string title, string info, int leftPos, int topPos, int maxWidth, int maxHeight = 0)
-            : base(info, leftPos, topPos, maxWidth, maxHeight)
+        public TextBox(string title, int leftPos, int topPos, int maxWidth, int maxHeight = 0)
+            : base(leftPos, topPos, maxWidth, maxHeight)
         {
             Title = title;
             BorderColor = ConsoleColor.White;
             InfoColor = ConsoleColor.White;
         }
 
-        public override void Render()
+        public override void Render(string data)
         {
-            var previousConsoleColor = Console.ForegroundColor;
-            Console.SetCursorPosition(LeftPos, TopPos);
-            DrawTopAndBottom();
-            DrawSides();
-            DrawInfo();
+            if (previousData != null && data != previousData)
+            {
+                previousData = data;
+                var previousConsoleColor = Console.ForegroundColor;
+                Console.SetCursorPosition(LeftPos, TopPos);
+                DrawData(data);
+                DrawTopAndBottom();
+                DrawSides();
+            }
         }
 
         protected virtual void WriteAt(string s, int left, int top, int x, int y)
@@ -71,12 +77,15 @@ namespace TypeFaster.UI.GuiComponents
             }
         }
 
-        protected virtual void DrawInfo()
+        protected virtual void DrawData(string data)
         {
             var topOffset = 1;
-            foreach (var infoItem in _info)
+            var dataForDrawing = GetDataForDrawing(data).ToArray();
+            Height = dataForDrawing.Length;
+
+            foreach (var dataItem in dataForDrawing)
             {
-                WriteAt(infoItem, LeftPos, TopPos, 1, topOffset++);
+                WriteAt(dataItem, LeftPos, TopPos, 1, topOffset++);
             }
         }
     }
