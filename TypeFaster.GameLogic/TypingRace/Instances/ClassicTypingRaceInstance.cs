@@ -44,6 +44,8 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
 
             _gameRenderer = gameRenderer;
             _gameRenderer.SetTypingRaceInstance(this);
+
+            ChangeState(new InitializedState());
         }
 
         public void HandleUserInput(ConsoleKeyInfo consoleKeyInfo)
