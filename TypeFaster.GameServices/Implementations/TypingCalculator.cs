@@ -35,6 +35,9 @@ namespace TypeFaster.GameServices.Implementations
 
             var elapsedMinutes = (_dateTime.Now - startTime).TotalMinutes;
 
+            if (elapsedMinutes == 0)
+                throw new DivideByZeroException("Cannot divide by zero.");
+
             return Convert.ToInt32(Math.Truncate(wordsTyped / elapsedMinutes));
         }
 
@@ -42,6 +45,9 @@ namespace TypeFaster.GameServices.Implementations
         {
             var netTypingSpeed = GetNetTypingSpeed(userInput, startTime, totalErrorsMade);
             var grossTypingSpeed = GetGrossTypingSpeed(userInput, startTime);
+
+            if (grossTypingSpeed == 0)
+                throw new DivideByZeroException("Cannot divide by zero.");
 
             return (netTypingSpeed / grossTypingSpeed) * 100;
         }
