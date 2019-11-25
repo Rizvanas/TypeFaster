@@ -23,13 +23,14 @@ namespace TypeFaster.UI.GuiComponents
         {
             if (previousData != null && data != previousData)
             {
-                previousData = data;
                 var previousConsoleColor = Console.ForegroundColor;
                 Console.SetCursorPosition(LeftPos, TopPos);
                 DrawData(data);
                 DrawTopAndBottom();
                 DrawSides();
             }
+
+            previousData = data;
         }
 
         protected virtual void WriteAt(string s, int left, int top, int x, int y)
