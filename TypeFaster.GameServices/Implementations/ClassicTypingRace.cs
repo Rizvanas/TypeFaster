@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
 using TypeFaster.Domain.Entities;
-using TypeFaster.Domain.ValueObjects;
 using TypeFaster.GameServices.Contracts;
 
 namespace TypeFaster.GameServices.Implementations

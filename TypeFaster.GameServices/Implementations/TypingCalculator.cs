@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using TypeFaster.Common.Contracts;
-using TypeFaster.Domain.Entities;
 using TypeFaster.GameServices.Contracts;
 
 namespace TypeFaster.GameServices.Implementations
