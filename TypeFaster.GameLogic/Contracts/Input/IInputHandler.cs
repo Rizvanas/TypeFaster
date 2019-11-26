@@ -10,8 +10,11 @@ namespace TypeFaster.GameLogic.Contracts.Input
         void IssueLetterAdditionCommand(ConsoleKeyInfo keyInfo);
         void IssueLetterDeletionCommand();
         void IssueGameStateChangingCommand(TypingRaceState typingRaceState);
+        void IssueErrorDeletionCommand();
         void IssueErrorStateToggleCommand();
         void IssueTyposUpdateCommand();
+        void IssueTimerToggleCommand();
+        void IssueTimerRestartCommand();
         void IssueUndoCommand();
     }
 }

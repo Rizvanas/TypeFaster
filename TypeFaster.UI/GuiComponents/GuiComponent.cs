@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace TypeFaster.UI.GuiComponents
@@ -39,6 +40,29 @@ namespace TypeFaster.UI.GuiComponents
                 yield return dataItem;
 
             } while (data.Length != 0);
+        }
+
+        protected void ClearCurrentConsoleLine()
+        {
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, currentLineCursor);
+        }
+
+        public void ClearComponent()
+        {
+            for (int i = TopPos; i <= TopPos + Height; i++)
+            {
+                ClearCurrentConsoleLine(LeftPos, i, Width);
+            }
+        }
+
+        protected void ClearCurrentConsoleLine(int cursorLeft, int cursorTop, int width)
+        {
+            Console.SetCursorPosition(cursorLeft, cursorTop);
+            Console.Write(new string(' ', width));
+            Console.SetCursorPosition(cursorLeft, cursorTop);
         }
     }
 }

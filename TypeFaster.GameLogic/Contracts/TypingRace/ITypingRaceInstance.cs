@@ -10,18 +10,22 @@ namespace TypeFaster.GameLogic.Contracts.TypingRace
         string Sentence { get; }
         IDictionary<int, string> Typos { get; }
         TimeSpan GameTimeLeft { get; }
-        int TypingSpeed { get; }
-        decimal TypingAccuracy { get; }
         TypingRaceState State { get; }
         bool IsInErrorState { get; }
         bool IsInExitState { get; }
+        public decimal TypingAccuracy { get; }
+        public int TypingSpeed { get; }
 
         void HandleUserInput(ConsoleKeyInfo consoleKeyInfo);
         void Render();
         void ChangeState(TypingRaceState state);
-        bool CheckForInputError();
+        bool UserHasMadeATypo();
         void UpdateTypos();
         void AddNewLetter(char letter);
         void DeleteLastLetter();
+        void ToggleTimer();
+        void RestartTimer();
+        void UpdateTypingSpeed();
+        void UpdateTypingAccuracy();
     }
 }

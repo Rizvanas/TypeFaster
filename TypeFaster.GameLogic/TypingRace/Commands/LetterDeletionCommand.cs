@@ -12,13 +12,19 @@ namespace TypeFaster.GameLogic.TypingRace.Commands
 
         public void Execute() 
         {
-            _deletedLetter = _typingRaceInstance.UserInput.LastOrDefault();
-            _typingRaceInstance.DeleteLastLetter();
+            if (_typingRaceInstance.UserInput.Length != 0 && _typingRaceInstance.UserInput.Last() != ' ')
+            {
+                _deletedLetter = _typingRaceInstance.UserInput.LastOrDefault();
+                _typingRaceInstance.DeleteLastLetter();
+            }
         }
 
         public void Undo()
         {
-            _typingRaceInstance.AddNewLetter(_deletedLetter);
+            if (_deletedLetter != '\0')
+            {
+                _typingRaceInstance.AddNewLetter(_deletedLetter);
+            }
         }
     }
 }

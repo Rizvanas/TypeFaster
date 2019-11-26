@@ -13,18 +13,22 @@ namespace TypeFaster.GameLogic.TypingRace.States
 
             if (keyInfo.Key == ConsoleKey.Backspace)
             {
-                _inputHandler.IssueLetterDeletionCommand();
+                _inputHandler.IssueErrorDeletionCommand();
                 _inputHandler.IssueErrorStateToggleCommand();
             }
 
             if (keyInfo.Key == ConsoleKey.Escape)
+            {
+                _inputHandler.IssueTimerToggleCommand();
                 _inputHandler.IssueGameStateChangingCommand(new PausedState());
+            }
         }
 
         public override void Render(ITypingRaceInstance typingRaceInstance)
         {
             _gameRenderer.RenderUserInput();
             _gameRenderer.RenderPlayerTypingSpeed();
+            _gameRenderer.RenderTimeLeft();
             _gameRenderer.RenderGameWindow();
         }
     }

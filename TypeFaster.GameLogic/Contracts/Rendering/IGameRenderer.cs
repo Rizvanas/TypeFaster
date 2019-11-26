@@ -2,7 +2,7 @@
 
 namespace TypeFaster.GameLogic.Contracts.Rendering
 {
-    public interface IGameRenderer
+    public interface IGameRenderer : IObserver
     {
         void SetTypingRaceInstance(ITypingRaceInstance typingRace);
         void RenderGameWindow();
@@ -11,5 +11,6 @@ namespace TypeFaster.GameLogic.Contracts.Rendering
         void RenderExitConfirmationPrompt();
         void RenderUserInput();
         void RenderPlayerTypingSpeed();
+        void RenderTimeLeft();
     }
 }

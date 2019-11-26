@@ -5,9 +5,12 @@ namespace TypeFaster.GameServices.Contracts
 {
     public interface ITimeService
     {
-        int GetWordsPerMinute(TimeSpan timeElapsed, int wordCount);
-        TimeSpan GetGameTimeLeft(DateTime endTime);
-        DateTime GetGameStartTime();
-        DateTime GetGameEndTime(Sentence sentence);
+        bool TimerIsRunning { get; }
+
+        void StartGameTimer();
+        void StopGameTimer();
+        void ResetGameTimer();
+        TimeSpan GetGameTimeLeft(TimeSpan duration);
+        TimeSpan CalculateGameDuration(Sentence sentence);
     }
 }

@@ -47,9 +47,27 @@ namespace TypeFaster.GameLogic.Input.Handlers
             _raceInstanceModifier.InvokeModification();
         }
 
+        public void IssueErrorDeletionCommand()
+        {
+            _raceInstanceModifier.SetCommand(new ErrorDeletionCommand(_typingRaceInstance));
+            _raceInstanceModifier.InvokeModification();
+        }
+
         public void IssueTyposUpdateCommand()
         {
             _raceInstanceModifier.SetCommand(new TyposUpdateCommand(_typingRaceInstance));
+            _raceInstanceModifier.InvokeModification();
+        }
+
+        public void IssueTimerToggleCommand()
+        {
+            _raceInstanceModifier.SetCommand(new TimerToggleCommand(_typingRaceInstance));
+            _raceInstanceModifier.InvokeModification();
+        }
+
+        public void IssueTimerRestartCommand()
+        {
+            _raceInstanceModifier.SetCommand(new TimerRestartCommand(_typingRaceInstance));
             _raceInstanceModifier.InvokeModification();
         }
 

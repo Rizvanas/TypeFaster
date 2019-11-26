@@ -9,7 +9,10 @@ namespace TypeFaster.GameLogic.TypingRace.States
         public override void HandleInput(ConsoleKeyInfo keyInfo)
         {
             if (keyInfo.Key == ConsoleKey.Escape)
+            {
+                _inputHandler.IssueTimerToggleCommand();
                 _inputHandler.IssueGameStateChangingCommand(new PausedState());
+            }
 
             if (keyInfo.Key == ConsoleKey.Backspace)
             {
@@ -28,6 +31,7 @@ namespace TypeFaster.GameLogic.TypingRace.States
         public override void Render(ITypingRaceInstance typingRaceInstance)
         {
             _gameRenderer.RenderUserInput();
+            _gameRenderer.RenderTimeLeft();
             _gameRenderer.RenderPlayerTypingSpeed();
             _gameRenderer.RenderGameWindow();
         }

@@ -8,7 +8,10 @@ namespace TypeFaster.GameLogic.TypingRace.States
         public override void HandleInput(ConsoleKeyInfo keyInfo)
         {
             if (keyInfo.Key == ConsoleKey.Enter)
+            {
                 _inputHandler.IssueGameStateChangingCommand(new RunningState());
+                _inputHandler.IssueTimerRestartCommand();
+            }
 
             if (keyInfo.Key == ConsoleKey.Escape)
                 _inputHandler.IssueGameStateChangingCommand(new ExitConfirmationState());
@@ -16,8 +19,8 @@ namespace TypeFaster.GameLogic.TypingRace.States
 
         public override void Render(ITypingRaceInstance typingRaceInstance)
         {
-            _gameRenderer.RenderGameWindow();
             _gameRenderer.RenderInitializedStatePrompt();
+            _gameRenderer.RenderGameWindow();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using TypeFaster.Common.Contracts;
+using System.Diagnostics;
 using TypeFaster.Domain.Entities;
 using TypeFaster.GameServices.Contracts;
 
@@ -7,36 +7,36 @@ namespace TypeFaster.GameServices.Implementations
 {
     public class TimeService : ITimeService
     {
-        IDateTime _dateTime;
+        private readonly Stopwatch _stopwatch;
 
-        public TimeService(IDateTime dateTime)
+        public bool TimerIsRunning => _stopwatch.IsRunning;
+
+        public TimeService(Stopwatch stopwatch)
         {
-            _dateTime = dateTime;
+            _stopwatch = stopwatch;
         }
 
-        public int GetWordsPerMinute(TimeSpan timeElapsed, int wordCount)
+        public void StartGameTimer()
         {
-            var wordsPerMinute = wordCount / timeElapsed.TotalMinutes;
-            return Convert.ToInt32(Math.Round(wordsPerMinute));
+            _stopwatch.Start();
         }
 
-        public TimeSpan GetGameTimeLeft(DateTime endTime)
+        public void StopGameTimer()
         {
-            return _dateTime.Now - endTime;
+            _stopwatch.Stop();
         }
 
-        public DateTime GetGameStartTime()
+        public void ResetGameTimer()
         {
-            return _dateTime.Now;
+            _stopwatch.Restart();
         }
 
-        public DateTime GetGameEndTime(Sentence sentence)
+        public TimeSpan GetGameTimeLeft(TimeSpan duration)
         {
-            var gameDuration = CalculateGameDuration(sentence);
-            return _dateTime.Now.Add(gameDuration);
+            return duration - _stopwatch.Elapsed;
         }
 
-        private TimeSpan CalculateGameDuration(Sentence sentence)
+        public TimeSpan CalculateGameDuration(Sentence sentence)
         {
             var sentenceWordCount = sentence.Words.Split().Length;
             return TimeSpan.FromSeconds(sentenceWordCount * 3);

@@ -42,16 +42,19 @@ namespace TypeFaster.Launcher.GameLauncher
                 Sentence = randomSentence,
                 UserInput = "",
                 Typos = new Dictionary<int, string>(),
-                StartTime = _timeService.GetGameStartTime(),
-                EndTime = _timeService.GetGameEndTime(randomSentence)
+                Duration = _timeService.CalculateGameDuration(randomSentence)
             };
 
-            return new ClassicTypingRaceInstance(
+            var classicRace = new ClassicTypingRaceInstance(
                 typingRaceData: typingRaceData,
                 timeService: _timeService,
                 typingCalculator: _typingCalculator, 
                 inputHandler: _inputHandler,
                 gameRenderer: _gameRenderer);
+
+            classicRace.Subscribe(_gameRenderer);
+
+            return classicRace;
         }
     }
 }

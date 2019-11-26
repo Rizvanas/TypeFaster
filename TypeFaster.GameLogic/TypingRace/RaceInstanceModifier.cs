@@ -7,17 +7,17 @@ namespace TypeFaster.GameLogic.TypingRace
     public class RaceInstanceModifier
     {
         private readonly List<ICommand> _commands = new List<ICommand>();
-        private ICommand _inputModificationCommand;
+        private ICommand _modificationCommand;
 
-        public void SetCommand(ICommand command) => _inputModificationCommand = command;
+        public void SetCommand(ICommand command) => _modificationCommand = command;
 
         public void InvokeModification()
         {
-            if (_inputModificationCommand == null)
+            if (_modificationCommand == null)
                 throw new ArgumentNullException($"{nameof(ICommand)} is null.");
 
-            _commands.Add(_inputModificationCommand);
-            _inputModificationCommand.Execute();
+            _commands.Add(_modificationCommand);
+            _modificationCommand.Execute();
         }
 
         public void InvokeUndo()
@@ -25,7 +25,8 @@ namespace TypeFaster.GameLogic.TypingRace
             var lastCommandIndex = _commands.Count - 1;
             if (lastCommandIndex != -1)
             {
-                _inputModificationCommand = _commands[lastCommandIndex];
+                _modificationCommand = _commands[lastCommandIndex];
+                _modificationCommand.Undo();
                 _commands.RemoveAt(lastCommandIndex);
             }
         }

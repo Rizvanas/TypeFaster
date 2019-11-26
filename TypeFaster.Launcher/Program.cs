@@ -1,5 +1,5 @@
 ﻿using System;
-using TypeFaster.Common;
+using System.Diagnostics;
 using TypeFaster.Common.services;
 using TypeFaster.GameLogic.Input.Handlers;
 using TypeFaster.GameLogic.Input.Listeners;
@@ -17,13 +17,12 @@ namespace TypeFaster.Launcher
         {
             var sentenceRepository = new SentenceTxtFileRepository("SentencesDatabase.txt");
             var rng = new RandomGenerator(new Random());
-            var machineDateTime = new MachineDateTime();
 
             var gameLauncher = new ClassicGameLauncher(
                 inputListener: new InputListener(),
                 sentenceLoader: new SentenceLoader(sentenceRepository, rng), 
-                timeService: new TimeService(machineDateTime),
-                typingCalculator: new TypingCalculator(machineDateTime),
+                timeService: new TimeService(new Stopwatch()),
+                typingCalculator: new TypingCalculator(),
                 inputHandler: new InputHandler(new RaceInstanceModifier()),
                 gameRenderer: new GameRenderer());
 

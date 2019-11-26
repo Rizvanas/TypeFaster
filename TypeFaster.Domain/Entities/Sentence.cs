@@ -1,6 +1,4 @@
 ﻿
-using System.Collections.Generic;
-
 namespace TypeFaster.Domain.Entities
 {
     public class Sentence

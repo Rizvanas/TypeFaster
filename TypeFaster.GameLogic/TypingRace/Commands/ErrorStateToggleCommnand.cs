@@ -15,13 +15,13 @@ namespace TypeFaster.GameLogic.TypingRace.Commands
 
         public void Execute()
         {
-            if (_typingRaceInstance.CheckForInputError() && !_typingRaceInstance.IsInErrorState)
+            if (_typingRaceInstance.UserHasMadeATypo() && !_typingRaceInstance.IsInErrorState)
             {
                 _previousState = _typingRaceInstance.State;
                 _typingRaceInstance.ChangeState(new ErrorState());
 
             }
-            else if (!_typingRaceInstance.CheckForInputError() && _typingRaceInstance.IsInErrorState)
+            else if (!_typingRaceInstance.UserHasMadeATypo() && _typingRaceInstance.IsInErrorState)
             {
                 _previousState = _typingRaceInstance.State;
                 _typingRaceInstance.ChangeState(new RunningState());

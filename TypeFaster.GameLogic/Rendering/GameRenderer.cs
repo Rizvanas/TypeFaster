@@ -1,6 +1,7 @@
 ﻿using System;
 using TypeFaster.GameLogic.Contracts.Rendering;
 using TypeFaster.GameLogic.Contracts.TypingRace;
+using TypeFaster.GameLogic.TypingRace.States;
 using TypeFaster.UI.GuiComponents;
 
 namespace TypeFaster.GameLogic.Rendering
@@ -10,18 +11,18 @@ namespace TypeFaster.GameLogic.Rendering
         private ITypingRaceInstance _typingRaceInstance;
         private TextBox _gameWindow;
         private TextBox _typingSpeedIndicator;
+        private TextBox _timeLeft;
         private TextBox _promptWindow;
-        private TextBox _initializedStateWindow;
         private UserInputBox _inputBox;
 
         public void SetTypingRaceInstance(ITypingRaceInstance typingRaceInstance)
         {
             _typingRaceInstance = typingRaceInstance;
-            _gameWindow = new TextBox("Game Window", 0, 0, Console.WindowWidth - 2, Console.WindowHeight - 2);
+            _gameWindow = new TextBox("Game Window", 1, 1, Console.WindowWidth - 1, Console.WindowHeight - 1);
             _inputBox = new UserInputBox("Sentence", 20 / 2, 20 / 2, Console.WindowWidth - 20);
-            _typingSpeedIndicator = new TextBox("Typing Speed", 106, 5, 4, 2);
+            _typingSpeedIndicator = new TextBox("Typing Speed", 114, 5, 4, 2);
+            _timeLeft = new TextBox("Time Left", 106, 5, 8);
             _promptWindow = new TextBox("Menu", 20 / 2, 20 / 2, Console.WindowWidth - 20);
-            _initializedStateWindow = new TextBox("Menu", 20 / 2, 20 / 2, Console.WindowWidth - 20);
         }
 
         public void RenderGameWindow()
@@ -49,6 +50,13 @@ namespace TypeFaster.GameLogic.Rendering
             _typingSpeedIndicator.Render(_typingRaceInstance.TypingSpeed.ToString());
         }
 
+        public void RenderTimeLeft()
+        {
+            _timeLeft.ClearComponent();
+            var timeLeft = _typingRaceInstance.GameTimeLeft;
+            _timeLeft.Render(String.Format("{0}m:{1:D2}s", timeLeft.Minutes, timeLeft.Seconds));
+        }
+
         public void RenderUserInput()
         {
             SetUserInputColor();
@@ -59,6 +67,14 @@ namespace TypeFaster.GameLogic.Rendering
         private void SetUserInputColor()
         {
             _inputBox.MatchingInputColor = ConsoleColor.DarkGreen;
+        }
+
+        public void Update(TypingRaceState typingRaceState)
+        {
+            _promptWindow.ClearComponent();
+            _timeLeft.ClearComponent();
+            _typingSpeedIndicator.ClearComponent();
+            _inputBox.ClearComponent();
         }
     }
 }
