@@ -8,10 +8,7 @@ namespace TypeFaster.GameServices.Implementations
     {
         public int GetNetTypingSpeed(string userInput, TimeSpan elapsedTime, int totalErrorsMade)
         {
-            var wordsTyped = userInput.Split(" ")
-                .Where(w => !string.IsNullOrWhiteSpace(w))
-                .Count();
-
+            var wordsTyped = userInput.Length / 5;
             var elapsedMinutes = elapsedTime.TotalMinutes;
 
             var netSpeed = (wordsTyped - totalErrorsMade) / elapsedMinutes;
@@ -21,10 +18,7 @@ namespace TypeFaster.GameServices.Implementations
 
         public int GetGrossTypingSpeed(string userInput, TimeSpan elapsedTime)
         {
-            var wordsTyped = userInput.Split(" ")
-                .Where(w => !string.IsNullOrWhiteSpace(w))
-                .Count();
-
+            var wordsTyped = userInput.Length / 5;
             var elapsedMinutes = elapsedTime.TotalMinutes;
 
             if (elapsedMinutes == 0)
@@ -33,15 +27,12 @@ namespace TypeFaster.GameServices.Implementations
             return Convert.ToInt32(Math.Truncate(wordsTyped / elapsedMinutes));
         }
 
-        public decimal GetTypingAccuracy(string userInput, TimeSpan elapsedTime, int totalErrorsMade)
+        public decimal GetTypingAccuracy(string userInput, int totalErrorsMade)
         {
-            var netTypingSpeed = GetNetTypingSpeed(userInput, elapsedTime, totalErrorsMade);
-            var grossTypingSpeed = GetGrossTypingSpeed(userInput, elapsedTime);
+            var totalEntries = userInput.Length / 5;
+            var correctEntries = totalEntries - totalErrorsMade;
 
-            if (grossTypingSpeed == 0)
-                throw new DivideByZeroException("Cannot divide by zero.");
-
-            return (netTypingSpeed / grossTypingSpeed) * 100;
+            return ((decimal) correctEntries  / totalEntries) * 100;
         }
     }
 }

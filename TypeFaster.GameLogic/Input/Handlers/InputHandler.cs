@@ -4,17 +4,19 @@ using TypeFaster.GameLogic.Contracts.TypingRace;
 using TypeFaster.GameLogic.TypingRace;
 using TypeFaster.GameLogic.TypingRace.Commands;
 using TypeFaster.GameLogic.TypingRace.States;
+using TypeFaster.GameServices.Contracts;
 
 namespace TypeFaster.GameLogic.Input.Handlers
 {
     public class InputHandler : IInputHandler
     {
         private ITypingRaceInstance _typingRaceInstance;
-
+        private readonly ITimeService _timeService;
         private readonly RaceInstanceModifier _raceInstanceModifier;
 
-        public InputHandler(RaceInstanceModifier raceInstanceModifier)
+        public InputHandler(ITimeService timeService, RaceInstanceModifier raceInstanceModifier)
         {
+            _timeService = timeService;
             _raceInstanceModifier = raceInstanceModifier;
         }
 
@@ -61,13 +63,43 @@ namespace TypeFaster.GameLogic.Input.Handlers
 
         public void IssueTimerToggleCommand()
         {
-            _raceInstanceModifier.SetCommand(new TimerToggleCommand(_typingRaceInstance));
+            _raceInstanceModifier.SetCommand(new TimerToggleCommand(_timeService));
             _raceInstanceModifier.InvokeModification();
         }
 
         public void IssueTimerRestartCommand()
         {
-            _raceInstanceModifier.SetCommand(new TimerRestartCommand(_typingRaceInstance));
+            _raceInstanceModifier.SetCommand(new TimerRestartCommand(_timeService));
+            _raceInstanceModifier.InvokeModification();
+        }
+
+        public void InvokeTryFinishGameCommand()
+        {
+            _raceInstanceModifier.SetCommand(new TryFinishGameCommand(_typingRaceInstance, _timeService));
+            _raceInstanceModifier.InvokeModification();
+        }
+
+        public void IssueGameInitializationCommand()
+        {
+            _raceInstanceModifier.SetCommand(new GameInitializationCommand(_typingRaceInstance, _timeService));
+            _raceInstanceModifier.InvokeModification();
+        }
+
+        public void IssueEventDispatchDisableCommand()
+        {
+            _raceInstanceModifier.SetCommand(new EventDispatchDisableCommand(_timeService));
+            _raceInstanceModifier.InvokeModification();
+        }
+
+        public void InvokeEventDispatchEnableCommand()
+        {
+            _raceInstanceModifier.SetCommand(new EventDispatchEnableCommand(_timeService));
+            _raceInstanceModifier.InvokeModification();
+        }
+
+        public void InvokeCommand(ICommand command)
+        {
+            _raceInstanceModifier.SetCommand(command);
             _raceInstanceModifier.InvokeModification();
         }
 

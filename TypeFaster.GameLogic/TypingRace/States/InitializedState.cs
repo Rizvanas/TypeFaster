@@ -9,8 +9,8 @@ namespace TypeFaster.GameLogic.TypingRace.States
         {
             if (keyInfo.Key == ConsoleKey.Enter)
             {
+                _inputHandler.IssueGameInitializationCommand();
                 _inputHandler.IssueGameStateChangingCommand(new RunningState());
-                _inputHandler.IssueTimerRestartCommand();
             }
 
             if (keyInfo.Key == ConsoleKey.Escape)

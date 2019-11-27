@@ -11,6 +11,7 @@ namespace TypeFaster.GameLogic.TypingRace.States
             {
                 _inputHandler.IssueUndoCommand();
                 _inputHandler.IssueTimerToggleCommand();
+                _inputHandler.InvokeEventDispatchEnableCommand();
             }
 
             if (keyInfo.Key == ConsoleKey.Enter)

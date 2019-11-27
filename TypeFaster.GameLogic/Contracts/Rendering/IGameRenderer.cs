@@ -9,6 +9,8 @@ namespace TypeFaster.GameLogic.Contracts.Rendering
         void RenderPausedStatePrompt();
         void RenderInitializedStatePrompt();
         void RenderExitConfirmationPrompt();
+        void RenderGameOverPrompt();
+        void RenderGameFinishedPrompt();
         void RenderUserInput();
         void RenderPlayerTypingSpeed();
         void RenderTimeLeft();

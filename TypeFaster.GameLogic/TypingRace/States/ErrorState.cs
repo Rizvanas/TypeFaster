@@ -20,6 +20,7 @@ namespace TypeFaster.GameLogic.TypingRace.States
             if (keyInfo.Key == ConsoleKey.Escape)
             {
                 _inputHandler.IssueTimerToggleCommand();
+                _inputHandler.IssueEventDispatchDisableCommand();
                 _inputHandler.IssueGameStateChangingCommand(new PausedState());
             }
         }

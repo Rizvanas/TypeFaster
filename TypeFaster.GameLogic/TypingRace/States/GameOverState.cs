@@ -3,7 +3,7 @@ using TypeFaster.GameLogic.Contracts.TypingRace;
 
 namespace TypeFaster.GameLogic.TypingRace.States
 {
-    public class FinishedState : TypingRaceState
+    public class GameOverState : TypingRaceState
     {
         public override void HandleInput(ConsoleKeyInfo keyInfo)
         {
@@ -16,7 +16,9 @@ namespace TypeFaster.GameLogic.TypingRace.States
 
         public override void Render(ITypingRaceInstance typingRaceInstance)
         {
-            _gameRenderer.RenderGameFinishedPrompt();
+            _gameRenderer.RenderGameOverPrompt();
+            _gameRenderer.RenderGameWindow();
         }
+
     }
 }

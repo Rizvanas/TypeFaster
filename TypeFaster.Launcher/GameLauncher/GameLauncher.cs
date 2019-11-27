@@ -22,6 +22,9 @@ namespace TypeFaster.Launcher.GameLauncher
             {
                 _typingRace.Render();
                 _typingRace.HandleUserInput(_inputListener.Listen());
+
+                if (_typingRace.IsInWaitingForRestartState)
+                    _typingRace = CreateTypingRaceInstace();
             }
         }
     }

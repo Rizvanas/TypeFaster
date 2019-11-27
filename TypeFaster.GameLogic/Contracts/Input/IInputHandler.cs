@@ -15,6 +15,11 @@ namespace TypeFaster.GameLogic.Contracts.Input
         void IssueTyposUpdateCommand();
         void IssueTimerToggleCommand();
         void IssueTimerRestartCommand();
+        void IssueGameInitializationCommand();
+        void InvokeEventDispatchEnableCommand();
+        void IssueEventDispatchDisableCommand();
+        void InvokeTryFinishGameCommand();
         void IssueUndoCommand();
+        void InvokeCommand(ICommand command);
     }
 }

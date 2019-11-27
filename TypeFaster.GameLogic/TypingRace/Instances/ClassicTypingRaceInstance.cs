@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 using TypeFaster.Domain.Entities;
 using TypeFaster.GameLogic.Contracts.Input;
 using TypeFaster.GameLogic.Contracts.Rendering;
@@ -26,6 +27,8 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
         public TypingRaceState State { get; private set; }
         public bool IsInErrorState => State.GetType() == typeof(ErrorState);
         public bool IsInExitState => State.GetType() == typeof(ExitState);
+        public bool IsInFinishedState => State.GetType() == typeof(FinishedState);
+        public bool IsInWaitingForRestartState => State.GetType() == typeof(WaitingForRestartState);
         public decimal TypingAccuracy => _data.TypingAccuracy;
         public int TypingSpeed => _data.TypingSpeed;
 
@@ -79,10 +82,12 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
 
         public void UpdateTypos()
         {
-            var lastWordIndex = _data.UserInput.Length - 1;
-            var lastWord = _data.Sentence.Words.Split().ElementAt(lastWordIndex);
-
-            _data.Typos.TryAdd(lastWordIndex, lastWord);
+            var lastWordIndex = _data.UserInput.Split().Length - 1;
+            if (lastWordIndex != -1)
+            {
+                var lastWord = _data.Sentence.Words.Split().ElementAt(lastWordIndex);
+                _data.Typos.TryAdd(lastWordIndex, lastWord);
+            }
         }
 
         public void AddNewLetter(char letter)
@@ -116,30 +121,32 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
             }
         }
 
-        public void ToggleTimer()
-        {
-            if (_timeService.TimerIsRunning)
-                _timeService.StopGameTimer();
-            else
-                _timeService.StartGameTimer();
-        }
-
-        public void RestartTimer()
-        {
-            _timeService.ResetGameTimer();
-        }
-
-        public void UpdateTypingSpeed()
+        public void UpdateTypingSpeed(Object source, ElapsedEventArgs e)
         {
             _data.TypingSpeed = _typingCalculator.GetNetTypingSpeed(
                 UserInput, 
-                _timeService.GetGameTimeLeft(_data.Duration), 
+                _timeService.GetGameTimeElapsed(),
                 Typos.Count);
+        }
+
+        public void TrySetToGameOverState(Object source, ElapsedEventArgs e)
+        {
+            if (_timeService.GetGameTimeElapsed() >= _data.Duration)
+            {
+                _timeService.StopGameTimer();
+                _timeService.DisableEventDispatching();
+                ChangeState(new GameOverState());
+            }
+        }
+
+        public bool GameIsFinished()
+        {
+            return Sentence == UserInput;
         }
 
         public void UpdateTypingAccuracy()
         {
-            _data.TypingAccuracy = _typingCalculator.GetTypingAccuracy(UserInput, GameTimeLeft, Typos.Count);
+            _data.TypingAccuracy = _typingCalculator.GetTypingAccuracy(UserInput, Typos.Count);
         }
     }
 }

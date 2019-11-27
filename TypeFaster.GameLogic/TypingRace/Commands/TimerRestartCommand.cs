@@ -1,24 +1,25 @@
 ﻿using TypeFaster.GameLogic.Contracts.TypingRace;
+using TypeFaster.GameServices.Contracts;
 
 namespace TypeFaster.GameLogic.TypingRace.Commands
 {
     public class TimerRestartCommand : ICommand
     {
-        private readonly ITypingRaceInstance _typingRaceInstance;
+        private readonly ITimeService _timeService;
 
-        public TimerRestartCommand(ITypingRaceInstance typingRaceInstance)
+        public TimerRestartCommand(ITimeService timeService)
         {
-            _typingRaceInstance = typingRaceInstance;
+            _timeService = timeService;
         }
 
         public void Execute()
         {
-            _typingRaceInstance.RestartTimer();
+            _timeService.RestartGameTimer();
         }
 
         public void Undo()
         {
-            _typingRaceInstance.RestartTimer();
+            _timeService.RestartGameTimer();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Timers;
 using TypeFaster.GameLogic.TypingRace.States;
 
 namespace TypeFaster.GameLogic.Contracts.TypingRace
@@ -13,8 +14,10 @@ namespace TypeFaster.GameLogic.Contracts.TypingRace
         TypingRaceState State { get; }
         bool IsInErrorState { get; }
         bool IsInExitState { get; }
-        public decimal TypingAccuracy { get; }
-        public int TypingSpeed { get; }
+        bool IsInFinishedState { get; }
+        bool IsInWaitingForRestartState { get; }
+        decimal TypingAccuracy { get; }
+        int TypingSpeed { get; }
 
         void HandleUserInput(ConsoleKeyInfo consoleKeyInfo);
         void Render();
@@ -23,9 +26,9 @@ namespace TypeFaster.GameLogic.Contracts.TypingRace
         void UpdateTypos();
         void AddNewLetter(char letter);
         void DeleteLastLetter();
-        void ToggleTimer();
-        void RestartTimer();
-        void UpdateTypingSpeed();
+        void UpdateTypingSpeed(Object source, ElapsedEventArgs e);
         void UpdateTypingAccuracy();
+        void TrySetToGameOverState(Object source, ElapsedEventArgs e);
+        bool GameIsFinished();
     }
 }

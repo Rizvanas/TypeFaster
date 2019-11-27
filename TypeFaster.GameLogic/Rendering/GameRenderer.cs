@@ -45,14 +45,23 @@ namespace TypeFaster.GameLogic.Rendering
             _promptWindow.Render("Do you really want to exit the game? [Enter]");
         }
 
-        public void RenderPlayerTypingSpeed()
+        public void RenderGameOverPrompt()
         {
+            _promptWindow.Render("Game Over, do you want to play again? [Enter]/[Esc]");
+        }
+
+        public void RenderGameFinishedPrompt()
+        {
+            _promptWindow.Render("Success!!! Do you want to play again? [Enter]/[Esc]");
+        }
+
+        public void RenderPlayerTypingSpeed()
+        { 
             _typingSpeedIndicator.Render(_typingRaceInstance.TypingSpeed.ToString());
         }
 
         public void RenderTimeLeft()
         {
-            _timeLeft.ClearComponent();
             var timeLeft = _typingRaceInstance.GameTimeLeft;
             _timeLeft.Render(String.Format("{0}m:{1:D2}s", timeLeft.Minutes, timeLeft.Seconds));
         }
@@ -71,10 +80,14 @@ namespace TypeFaster.GameLogic.Rendering
 
         public void Update(TypingRaceState typingRaceState)
         {
+            Console.Clear();
+            /*
             _promptWindow.ClearComponent();
             _timeLeft.ClearComponent();
             _typingSpeedIndicator.ClearComponent();
-            _inputBox.ClearComponent();
+            _inputBox.ClearComponent();             
+             */
+
         }
     }
 }

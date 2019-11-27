@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Timers;
 using TypeFaster.Domain.Entities;
 using TypeFaster.GameServices.Contracts;
 
@@ -8,12 +9,15 @@ namespace TypeFaster.GameServices.Implementations
     public class TimeService : ITimeService
     {
         private readonly Stopwatch _stopwatch;
+        private readonly Timer _timer;
 
         public bool TimerIsRunning => _stopwatch.IsRunning;
+        public bool EventDispatchingEnabled => _timer.Enabled;
 
-        public TimeService(Stopwatch stopwatch)
+        public TimeService(Stopwatch stopwatch, Timer timer)
         {
             _stopwatch = stopwatch;
+            _timer = timer;
         }
 
         public void StartGameTimer()
@@ -26,7 +30,7 @@ namespace TypeFaster.GameServices.Implementations
             _stopwatch.Stop();
         }
 
-        public void ResetGameTimer()
+        public void RestartGameTimer()
         {
             _stopwatch.Restart();
         }
@@ -36,10 +40,35 @@ namespace TypeFaster.GameServices.Implementations
             return duration - _stopwatch.Elapsed;
         }
 
+        public TimeSpan GetGameTimeElapsed()
+        {
+            return _stopwatch.Elapsed;
+        }
+
         public TimeSpan CalculateGameDuration(Sentence sentence)
         {
             var sentenceWordCount = sentence.Words.Split().Length;
             return TimeSpan.FromSeconds(sentenceWordCount * 3);
+        }
+
+        public void SetTimedEventDispatchInterval(int interval)
+        {
+            _timer.Interval = interval;
+        }
+        
+        public void AddTimedEvent(ElapsedEventHandler timedEvent)
+        {
+            _timer.Elapsed += timedEvent;
+        }
+
+        public void EnableEventDispatching()
+        {
+            _timer.Enabled = true; 
+        }
+
+        public void DisableEventDispatching()
+        {
+            _timer.Enabled = false;
         }
     }
 }

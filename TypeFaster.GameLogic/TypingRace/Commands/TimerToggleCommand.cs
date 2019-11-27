@@ -1,24 +1,33 @@
 ﻿using TypeFaster.GameLogic.Contracts.TypingRace;
+using TypeFaster.GameServices.Contracts;
 
 namespace TypeFaster.GameLogic.TypingRace.Commands
 {
     public class TimerToggleCommand : ICommand
     {
-        private readonly ITypingRaceInstance _typingRaceInstance;
+        private readonly ITimeService _timeService;
 
-        public TimerToggleCommand(ITypingRaceInstance typingRaceInstance)
+        public TimerToggleCommand(ITimeService timeService)
         {
-            _typingRaceInstance = typingRaceInstance;
+            _timeService = timeService;
         }
 
         public void Execute()
         {
-            _typingRaceInstance.ToggleTimer();
+            ToggleTimer();
         }
 
         public void Undo()
         {
-            _typingRaceInstance.ToggleTimer();
+            ToggleTimer();
+        }
+
+        private void ToggleTimer()
+        {
+            if (_timeService.TimerIsRunning)
+                _timeService.StopGameTimer();
+            else
+                _timeService.StartGameTimer();
         }
     }
 }
