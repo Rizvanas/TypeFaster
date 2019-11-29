@@ -9,6 +9,7 @@ namespace TypeFaster.Domain.Entities
         public TimeSpan Duration { get; set; }
         public Sentence Sentence { get; set; }
         public string UserInput { get; set; }
+        public string PreErrorInput { get; set; }
         public int TypingSpeed { get; set; }
         public decimal TypingAccuracy { get; set; }
         public IDictionary<int, string> Typos

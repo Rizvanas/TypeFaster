@@ -14,6 +14,9 @@ namespace TypeFaster.GameLogic.Rendering
         private TextBox _timeLeft;
         private TextBox _promptWindow;
         private UserInputBox _inputBox;
+        private TextBox _typingAccuracyBox;
+        private TextBox _typingSpeedBox;
+        private TextBox _typosBox;
 
         public void SetTypingRaceInstance(ITypingRaceInstance typingRaceInstance)
         {
@@ -22,7 +25,11 @@ namespace TypeFaster.GameLogic.Rendering
             _inputBox = new UserInputBox("Sentence", 20 / 2, 20 / 2, Console.WindowWidth - 20);
             _typingSpeedIndicator = new TextBox("Typing Speed", 114, 5, 4, 2);
             _timeLeft = new TextBox("Time Left", 106, 5, 8);
-            _promptWindow = new TextBox("Menu", 20 / 2, 20 / 2, Console.WindowWidth - 20);
+            _promptWindow = new TextBox("Menu", 10, 10, Console.WindowWidth - 20);
+            _typingAccuracyBox = new TextBox("Typing Accuracy", (Console.WindowWidth - 31) / 2, _promptWindow.TopPos + 3, 31);
+            _typingSpeedBox = new TextBox("Typing Speed", (Console.WindowWidth - 31) / 2, _typingAccuracyBox.TopPos + 3, _typingAccuracyBox.Width);
+
+            _typosBox = new TextBox("Mistakes", 0, _typingSpeedBox.TopPos + 3, 0);
         }
 
         public void RenderGameWindow()
@@ -69,25 +76,30 @@ namespace TypeFaster.GameLogic.Rendering
         public void RenderUserInput()
         {
             SetUserInputColor();
-            _inputBox.UpdateUserInput(_typingRaceInstance.UserInput);
+            _inputBox.UpdateUserInput(_typingRaceInstance.UserInput, _typingRaceInstance.PreErrorInput);
             _inputBox.Render(_typingRaceInstance.Sentence);
         }
 
-        private void SetUserInputColor()
+        public void RenderEndPlayerStats()
         {
-            _inputBox.MatchingInputColor = ConsoleColor.DarkGreen;
+            _typingAccuracyBox.Render($"Your typing accuracy: {String.Format("{0:0.00}", _typingRaceInstance.TypingAccuracy)}%");
+            _typingSpeedBox.Render($"Your typing speed is: {_typingRaceInstance.TypingSpeed} wpm");
+
+            var typos = string.Join("; ", _typingRaceInstance.Typos);
+            _typosBox.Width = typos.Length + 2;
+            _typosBox.LeftPos = (Console.WindowWidth - _typosBox.Width) / 2;
+            _typosBox.Render(typos);
         }
 
         public void Update(TypingRaceState typingRaceState)
         {
             Console.Clear();
-            /*
-            _promptWindow.ClearComponent();
-            _timeLeft.ClearComponent();
-            _typingSpeedIndicator.ClearComponent();
-            _inputBox.ClearComponent();             
-             */
+        }
 
+        private void SetUserInputColor()
+        {
+            _inputBox.MatchingInputColor = ConsoleColor.DarkGreen;
+            _inputBox.ErrorColor = ConsoleColor.Red;
         }
     }
 }

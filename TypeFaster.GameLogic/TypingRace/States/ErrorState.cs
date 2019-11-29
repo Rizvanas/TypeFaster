@@ -15,6 +15,7 @@ namespace TypeFaster.GameLogic.TypingRace.States
             {
                 _inputHandler.IssueErrorDeletionCommand();
                 _inputHandler.IssueErrorStateToggleCommand();
+                _inputHandler.InvokePreErrorInputUpdateCommand();
             }
 
             if (keyInfo.Key == ConsoleKey.Escape)

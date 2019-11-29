@@ -13,6 +13,7 @@ namespace TypeFaster.GameLogic.Contracts.Rendering
         void RenderGameFinishedPrompt();
         void RenderUserInput();
         void RenderPlayerTypingSpeed();
+        void RenderEndPlayerStats();
         void RenderTimeLeft();
     }
 }

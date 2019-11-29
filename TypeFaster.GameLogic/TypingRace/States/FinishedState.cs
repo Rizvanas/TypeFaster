@@ -16,7 +16,9 @@ namespace TypeFaster.GameLogic.TypingRace.States
 
         public override void Render(ITypingRaceInstance typingRaceInstance)
         {
+            _gameRenderer.RenderGameWindow();
             _gameRenderer.RenderGameFinishedPrompt();
+            _gameRenderer.RenderEndPlayerStats();
         }
     }
 }

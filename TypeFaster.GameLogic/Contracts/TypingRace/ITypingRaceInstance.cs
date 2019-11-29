@@ -8,10 +8,12 @@ namespace TypeFaster.GameLogic.Contracts.TypingRace
     public interface ITypingRaceInstance
     {
         string UserInput { get; }
+        string PreErrorInput { get; }
         string Sentence { get; }
         IDictionary<int, string> Typos { get; }
         TimeSpan GameTimeLeft { get; }
         TypingRaceState State { get; }
+        bool IsInRunningState { get; }
         bool IsInErrorState { get; }
         bool IsInExitState { get; }
         bool IsInFinishedState { get; }
@@ -28,6 +30,7 @@ namespace TypeFaster.GameLogic.Contracts.TypingRace
         void DeleteLastLetter();
         void UpdateTypingSpeed(Object source, ElapsedEventArgs e);
         void UpdateTypingAccuracy();
+        void UpdatePreErrorInput();
         void TrySetToGameOverState(Object source, ElapsedEventArgs e);
         bool GameIsFinished();
     }

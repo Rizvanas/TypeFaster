@@ -41,6 +41,7 @@ namespace TypeFaster.Launcher.GameLauncher
                 Title = "Classic Game",
                 Sentence = randomSentence,
                 UserInput = "",
+                PreErrorInput = "",
                 Typos = new Dictionary<int, string>(),
                 Duration = _timeService.CalculateGameDuration(randomSentence)
             };

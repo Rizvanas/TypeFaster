@@ -19,12 +19,14 @@ namespace TypeFaster.GameLogic.TypingRace.States
             {
                 _inputHandler.IssueLetterDeletionCommand();
                 _inputHandler.IssueErrorStateToggleCommand();
+                _inputHandler.InvokePreErrorInputUpdateCommand();
             }
 
             if (keyInfo.KeyChar.IsLetterDigitSymbolOrWhiteSpace())
             {
                 _inputHandler.IssueLetterAdditionCommand(keyInfo);
                 _inputHandler.IssueErrorStateToggleCommand();
+                _inputHandler.InvokePreErrorInputUpdateCommand();
                 _inputHandler.IssueTyposUpdateCommand();
                 _inputHandler.InvokeTryFinishGameCommand();
             }

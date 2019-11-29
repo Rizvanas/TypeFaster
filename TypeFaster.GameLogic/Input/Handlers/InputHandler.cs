@@ -103,6 +103,12 @@ namespace TypeFaster.GameLogic.Input.Handlers
             _raceInstanceModifier.InvokeModification();
         }
 
+        public void InvokePreErrorInputUpdateCommand()
+        {
+            _raceInstanceModifier.SetCommand(new PreErrorInputUpdateCommand(_typingRaceInstance));
+            _raceInstanceModifier.InvokeModification();
+        }
+
         public void IssueUndoCommand()
         {
             _raceInstanceModifier.InvokeUndo();

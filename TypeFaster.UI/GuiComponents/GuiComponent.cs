@@ -13,10 +13,10 @@ namespace TypeFaster.UI.GuiComponents
 
         public GuiComponent(int leftPos, int topPos, int width, int height)
         {
-            LeftPos = leftPos;
-            TopPos = topPos;
             Width = width;
             Height = height;
+            LeftPos = leftPos;
+            TopPos = topPos;
         }
 
         public abstract void Render(string data);

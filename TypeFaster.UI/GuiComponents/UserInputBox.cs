@@ -4,8 +4,10 @@ namespace TypeFaster.UI.GuiComponents
 {
     public class UserInputBox : TextBox
     {
+        public string PreErrorInput { get; set; }
         public string UserInput { get; set; }
         public ConsoleColor MatchingInputColor { get; set; }
+        public ConsoleColor ErrorColor { get; set; }
 
         public UserInputBox(
             string title,
@@ -18,47 +20,44 @@ namespace TypeFaster.UI.GuiComponents
             MatchingInputColor = ConsoleColor.DarkGreen;
         }
 
-        protected override void WriteAt(string s, int left, int top, int x, int y)
-        {
-            try
-            {
-                Console.SetCursorPosition(left + x, top + y);
-                Console.Write(s);
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                Console.Clear();
-                Console.WriteLine(e.Message);
-            }
-        }
-
-        public void UpdateUserInput(string userInput)
+        public void UpdateUserInput(string userInput, string preErrorInput)
         {
             UserInput = userInput;
+            PreErrorInput = preErrorInput;
         }
 
         protected override void DrawData(string[] data)
         {
-            var tempTopPos = TopPos;
-            var tempTopPosOffset = 1;
-
-            foreach (var dataItem in data)
+            var inputSplitPoint = UserInput.Length;
+            var preErrorSplitPoint = PreErrorInput.Length;
+            
+            for (int i = 0; i < data.Length; i++)
             {
-                var tempLeftPos = LeftPos;
-                foreach (var letter in dataItem)
+                var nextInputSplitPoint = 0;
+                if (inputSplitPoint > data[i].Length)
                 {
-                    if (tempLeftPos >= LeftPos && 
-                        tempLeftPos < LeftPos + UserInput.Length - ((tempTopPosOffset-1) * (Width)) && 
-                       tempTopPosOffset - 1 <= UserInput.Length / (Width-2))
-                    {
-                        Console.BackgroundColor = MatchingInputColor;
-                    }
-
-                    WriteAt(letter.ToString(), tempLeftPos, tempTopPos, 1, tempTopPosOffset);
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    tempLeftPos++;
+                    nextInputSplitPoint = inputSplitPoint - data[i].Length;
+                    inputSplitPoint = data[i].Length;
                 }
-                tempTopPosOffset++;
+
+                var nextPreErrorSplitPoint = 0;
+                if (preErrorSplitPoint > data[i].Length)
+                {
+                    nextPreErrorSplitPoint = preErrorSplitPoint - data[i].Length;
+                    preErrorSplitPoint = data[i].Length;
+                }
+
+                Console.BackgroundColor = MatchingInputColor;
+                WriteAt(data[i].Substring(0, preErrorSplitPoint), LeftPos, TopPos, 1, i + 1);
+
+                Console.BackgroundColor = ErrorColor;
+                WriteAt(data[i].Substring(preErrorSplitPoint, inputSplitPoint - preErrorSplitPoint), LeftPos + preErrorSplitPoint, TopPos, 1, i + 1);
+
+                Console.BackgroundColor = ConsoleColor.Black;
+                WriteAt(data[i].Substring(inputSplitPoint), LeftPos + inputSplitPoint, TopPos, 1, i + 1);
+
+                inputSplitPoint = nextInputSplitPoint;
+                preErrorSplitPoint = nextPreErrorSplitPoint;
             }
         }
     }

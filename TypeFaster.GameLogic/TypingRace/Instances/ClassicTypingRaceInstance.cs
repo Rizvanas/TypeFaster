@@ -21,10 +21,12 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
         private readonly List<IObserver> _observers;
 
         public string UserInput => _data.UserInput;
+        public string PreErrorInput => _data.PreErrorInput;
         public string Sentence => _data.Sentence.Words;
         public IDictionary<int, string> Typos => _data.Typos;
         public TimeSpan GameTimeLeft => _timeService.GetGameTimeLeft(_data.Duration);
         public TypingRaceState State { get; private set; }
+        public bool IsInRunningState => State.GetType() == typeof(RunningState);
         public bool IsInErrorState => State.GetType() == typeof(ErrorState);
         public bool IsInExitState => State.GetType() == typeof(ExitState);
         public bool IsInFinishedState => State.GetType() == typeof(FinishedState);
@@ -69,10 +71,14 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
 
         public void ChangeState(TypingRaceState state)
         {
+            var wasInErrorState = State == null ? true : IsInErrorState;
+
             State = state;
             State.SetInputHandler(_inputHandler);
             State.SetRenderer(_gameRenderer);
-            Notify();
+
+            if (!IsInErrorState && !wasInErrorState)
+                Notify();
         }
 
         public bool UserHasMadeATypo()
@@ -137,6 +143,11 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
                 _timeService.DisableEventDispatching();
                 ChangeState(new GameOverState());
             }
+        }
+
+        public void UpdatePreErrorInput()
+        {
+            _data.PreErrorInput = _data.UserInput;
         }
 
         public bool GameIsFinished()
