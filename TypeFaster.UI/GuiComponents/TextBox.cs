@@ -6,14 +6,12 @@ namespace TypeFaster.UI.GuiComponents
 {
     public class TextBox : GuiComponent
     {
-        public string Title { get; set; }
         public ConsoleColor BorderColor { get; set; }
         public ConsoleColor InfoColor { get; set; }
 
-        public TextBox(string title, int leftPos, int topPos, int maxWidth, int maxHeight = 0)
+        public TextBox(int leftPos, int topPos, int maxWidth, int maxHeight = 0)
             : base(leftPos, topPos, maxWidth, maxHeight)
         {
-            Title = title;
             BorderColor = ConsoleColor.White;
             InfoColor = ConsoleColor.White;
         }

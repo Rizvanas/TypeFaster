@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace TypeFaster.UI.GuiComponents
 {
@@ -42,13 +41,6 @@ namespace TypeFaster.UI.GuiComponents
             } while (data.Length != 0);
         }
 
-        protected void ClearCurrentConsoleLine()
-        {
-            int currentLineCursor = Console.CursorTop;
-            Console.SetCursorPosition(0, Console.CursorTop);
-            Console.Write(new string(' ', Console.WindowWidth));
-            Console.SetCursorPosition(0, currentLineCursor);
-        }
 
         public void ClearComponent()
         {

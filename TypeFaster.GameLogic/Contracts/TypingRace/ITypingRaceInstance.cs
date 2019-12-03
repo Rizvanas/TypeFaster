@@ -16,6 +16,7 @@ namespace TypeFaster.GameLogic.Contracts.TypingRace
         bool IsInRunningState { get; }
         bool IsInErrorState { get; }
         bool IsInExitState { get; }
+        bool IsInPausedState { get; }
         bool IsInFinishedState { get; }
         bool IsInWaitingForRestartState { get; }
         decimal TypingAccuracy { get; }

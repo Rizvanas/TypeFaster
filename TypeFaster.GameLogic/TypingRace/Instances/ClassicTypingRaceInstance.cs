@@ -28,6 +28,7 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
         public TypingRaceState State { get; private set; }
         public bool IsInRunningState => State.GetType() == typeof(RunningState);
         public bool IsInErrorState => State.GetType() == typeof(ErrorState);
+        public bool IsInPausedState => State.GetType() == typeof(PausedState);
         public bool IsInExitState => State.GetType() == typeof(ExitState);
         public bool IsInFinishedState => State.GetType() == typeof(FinishedState);
         public bool IsInWaitingForRestartState => State.GetType() == typeof(WaitingForRestartState);
@@ -71,13 +72,12 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
 
         public void ChangeState(TypingRaceState state)
         {
-            var wasInErrorState = State == null ? true : IsInErrorState;
-
+            var wasInitState = State == null;
             State = state;
             State.SetInputHandler(_inputHandler);
             State.SetRenderer(_gameRenderer);
 
-            if (!IsInErrorState && !wasInErrorState)
+            if ((!IsInErrorState && !IsInRunningState) || wasInitState)
                 Notify();
         }
 
@@ -92,7 +92,7 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
             if (lastWordIndex != -1)
             {
                 var lastWord = _data.Sentence.Words.Split().ElementAt(lastWordIndex);
-                _data.Typos.TryAdd(lastWordIndex, lastWord);
+                _data.Typos.TryAdd(lastWordIndex + 1, lastWord);
             }
         }
 
