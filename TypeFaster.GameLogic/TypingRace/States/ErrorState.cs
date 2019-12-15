@@ -28,7 +28,6 @@ namespace TypeFaster.GameLogic.TypingRace.States
 
         public override void Render(ITypingRaceInstance typingRaceInstance)
         {
-            _gameRenderer.RenderGameWindow();
             _gameRenderer.RenderUserInput();
             _gameRenderer.RenderPlayerTypingSpeed();
             _gameRenderer.RenderTimeLeft();

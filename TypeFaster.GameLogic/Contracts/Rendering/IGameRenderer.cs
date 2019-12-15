@@ -6,11 +6,7 @@ namespace TypeFaster.GameLogic.Contracts.Rendering
     {
         void SetTypingRaceInstance(ITypingRaceInstance typingRace);
         void RenderGameWindow();
-        void RenderPausedStatePrompt();
-        void RenderInitializedStatePrompt();
-        void RenderExitConfirmationPrompt();
-        void RenderGameOverPrompt();
-        void RenderGameFinishedPrompt();
+        void RenderPrompt(string prompt);
         void RenderUserInput();
         void RenderPlayerTypingSpeed();
         void RenderEndPlayerStats();

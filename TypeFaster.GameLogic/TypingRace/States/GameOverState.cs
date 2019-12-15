@@ -1,5 +1,6 @@
 ﻿using System;
 using TypeFaster.GameLogic.Contracts.TypingRace;
+using TypeFaster.UI.Enums;
 
 namespace TypeFaster.GameLogic.TypingRace.States
 {
@@ -19,7 +20,7 @@ namespace TypeFaster.GameLogic.TypingRace.States
 
         public override void Render(ITypingRaceInstance typingRaceInstance)
         {
-            _gameRenderer.RenderGameOverPrompt();
+            _gameRenderer.RenderPrompt(UIPrompt.GAME_OVER);
             _gameRenderer.RenderGameWindow();
         }
 

@@ -10,5 +10,5 @@ namespace TypeFaster.UI.Enums
         public static readonly string BOTTOM_LEFT_CORNER = "╚";
         public static readonly string BOTTOM_RIGHT_CORNER = "╝";
         public static readonly string EMPTY_LINE = " ";
-}
+    }
 }

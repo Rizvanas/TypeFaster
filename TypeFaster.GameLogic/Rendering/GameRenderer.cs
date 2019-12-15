@@ -43,29 +43,9 @@ namespace TypeFaster.GameLogic.Rendering
             _gameWindow.Render("");
         }
 
-        public void RenderPausedStatePrompt()
+        public void RenderPrompt(string prompt)
         {
-            _promptWindow.Render("Press [Enter] to exit the game, If you want to Continue playing, press [Esc]");
-        }
-
-        public void RenderInitializedStatePrompt()
-        {
-            _promptWindow.Render("Press [Enter] to start a game. If you want to exit the game press [Esc]");
-        }
-
-        public void RenderExitConfirmationPrompt()
-        {
-            _promptWindow.Render("Do you really want to exit the game? [Enter]");
-        }
-
-        public void RenderGameOverPrompt()
-        {
-            _promptWindow.Render("Game Over, do you want to play again? [Enter]/[Esc]");
-        }
-
-        public void RenderGameFinishedPrompt()
-        {
-            _promptWindow.Render("Success!!! Do you want to play again? [Enter]/[Esc]");
+            _promptWindow.Render(prompt);
         }
 
         public void RenderPlayerTypingSpeed()
