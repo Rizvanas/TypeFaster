@@ -14,15 +14,13 @@ namespace TypeFaster.GameLogic.TypingRace.States
                 _inputHandler.IssueEventDispatchDisableCommand();
                 _inputHandler.IssueGameStateChangingCommand(new PausedState());
             }
-
-            if (keyInfo.Key == ConsoleKey.Backspace)
+            else if (keyInfo.Key == ConsoleKey.Backspace)
             {
                 _inputHandler.IssueLetterDeletionCommand();
                 _inputHandler.IssueErrorStateToggleCommand();
                 _inputHandler.InvokePreErrorInputUpdateCommand();
             }
-
-            if (keyInfo.KeyChar.IsLetterDigitSymbolOrWhiteSpace())
+            else if (keyInfo.KeyChar.IsLetterDigitSymbolOrWhiteSpace())
             {
                 _inputHandler.IssueLetterAdditionCommand(keyInfo);
                 _inputHandler.IssueErrorStateToggleCommand();

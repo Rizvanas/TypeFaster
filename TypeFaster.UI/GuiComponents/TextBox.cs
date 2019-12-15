@@ -22,7 +22,7 @@ namespace TypeFaster.UI.GuiComponents
             var previousConsoleColor = Console.ForegroundColor;
             var dataForDrawing = GetDataForDrawing(data).ToArray();
 
-            Height = Height == 0 ? dataForDrawing.Length + 1 : Height;
+            Height = Height <= dataForDrawing.Length ? dataForDrawing.Length + 1 : Height;
             Console.SetCursorPosition(LeftPos, TopPos);
             DrawTopAndBottom();
             DrawSides();

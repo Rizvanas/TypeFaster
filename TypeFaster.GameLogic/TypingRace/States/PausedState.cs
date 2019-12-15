@@ -13,9 +13,10 @@ namespace TypeFaster.GameLogic.TypingRace.States
                 _inputHandler.IssueTimerToggleCommand();
                 _inputHandler.InvokeEventDispatchEnableCommand();
             }
-
-            if (keyInfo.Key == ConsoleKey.Enter)
+            else if (keyInfo.Key == ConsoleKey.Enter)
+            {
                 _inputHandler.IssueGameStateChangingCommand(new ExitConfirmationState());
+            }
         }
 
         public override void Render(ITypingRaceInstance typingRaceInstance)

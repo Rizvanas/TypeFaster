@@ -25,7 +25,7 @@ namespace TypeFaster.UI.GuiComponents
             do
             {
                 string dataItem;
-                if (data.Length < Width)
+                if (data.Length < Width - 1)
                 {
                     dataItem = data;
                     data = "";

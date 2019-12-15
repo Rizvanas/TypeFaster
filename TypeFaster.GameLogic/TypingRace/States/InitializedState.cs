@@ -12,9 +12,10 @@ namespace TypeFaster.GameLogic.TypingRace.States
                 _inputHandler.IssueGameInitializationCommand();
                 _inputHandler.IssueGameStateChangingCommand(new RunningState());
             }
-
-            if (keyInfo.Key == ConsoleKey.Escape)
+            else if (keyInfo.Key == ConsoleKey.Escape)
+            {
                 _inputHandler.IssueGameStateChangingCommand(new ExitConfirmationState());
+            }
         }
 
         public override void Render(ITypingRaceInstance typingRaceInstance)

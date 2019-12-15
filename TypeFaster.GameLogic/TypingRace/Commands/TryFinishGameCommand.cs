@@ -31,6 +31,7 @@ namespace TypeFaster.GameLogic.TypingRace.Commands
                 _timeService.DisableEventDispatching();
                 _typingRaceInstance.UpdateTypingAccuracy();
                 _typingRaceInstance.ChangeState(new FinishedState());
+                _typingRaceInstance.Notify();
             }
         }
 

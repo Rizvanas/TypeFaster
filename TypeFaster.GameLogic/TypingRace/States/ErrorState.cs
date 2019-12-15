@@ -9,16 +9,16 @@ namespace TypeFaster.GameLogic.TypingRace.States
         public override void HandleInput(ConsoleKeyInfo keyInfo)
         {
             if (keyInfo.KeyChar.IsLetterDigitSymbolOrWhiteSpace())
+            {
                 _inputHandler.IssueLetterAdditionCommand(keyInfo);
-
-            if (keyInfo.Key == ConsoleKey.Backspace)
+            }
+            else if (keyInfo.Key == ConsoleKey.Backspace)
             {
                 _inputHandler.IssueErrorDeletionCommand();
                 _inputHandler.IssueErrorStateToggleCommand();
                 _inputHandler.InvokePreErrorInputUpdateCommand();
             }
-
-            if (keyInfo.Key == ConsoleKey.Escape)
+            else if (keyInfo.Key == ConsoleKey.Escape)
             {
                 _inputHandler.IssueTimerToggleCommand();
                 _inputHandler.IssueEventDispatchDisableCommand();
@@ -28,6 +28,7 @@ namespace TypeFaster.GameLogic.TypingRace.States
 
         public override void Render(ITypingRaceInstance typingRaceInstance)
         {
+            _gameRenderer.RenderGameWindow();
             _gameRenderer.RenderUserInput();
             _gameRenderer.RenderPlayerTypingSpeed();
             _gameRenderer.RenderTimeLeft();

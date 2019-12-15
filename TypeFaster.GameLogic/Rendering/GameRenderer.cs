@@ -102,14 +102,7 @@ namespace TypeFaster.GameLogic.Rendering
 
         public void Update(TypingRaceState typingRaceState)
         {
-            _typingAccuracyBox.ClearComponent();
-            _typosBox.ClearComponent();
-            _timeLeft.ClearComponent();
-            _promptWindow.ClearComponent();
-            _typingSpeedBox.ClearComponent();
-            _typingSpeedIndicator.ClearComponent();
-            _inputBox.ClearComponent();
-            
+            Console.Clear();
         }
 
         private void SetUserInputColor()

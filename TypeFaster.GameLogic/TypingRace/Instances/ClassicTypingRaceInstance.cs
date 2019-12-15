@@ -30,6 +30,7 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
         public bool IsInErrorState => State.GetType() == typeof(ErrorState);
         public bool IsInPausedState => State.GetType() == typeof(PausedState);
         public bool IsInExitState => State.GetType() == typeof(ExitState);
+        public bool IsInInitState => State.GetType() == typeof(InitializedState);
         public bool IsInFinishedState => State.GetType() == typeof(FinishedState);
         public bool IsInWaitingForRestartState => State.GetType() == typeof(WaitingForRestartState);
         public decimal TypingAccuracy => _data.TypingAccuracy;
@@ -72,13 +73,9 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
 
         public void ChangeState(TypingRaceState state)
         {
-            var wasInitState = State == null;
             State = state;
             State.SetInputHandler(_inputHandler);
             State.SetRenderer(_gameRenderer);
-
-            if ((!IsInErrorState && !IsInRunningState) || wasInitState)
-                Notify();
         }
 
         public bool UserHasMadeATypo()
@@ -141,6 +138,7 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
             {
                 _timeService.StopGameTimer();
                 _timeService.DisableEventDispatching();
+                Notify();
                 ChangeState(new GameOverState());
             }
         }

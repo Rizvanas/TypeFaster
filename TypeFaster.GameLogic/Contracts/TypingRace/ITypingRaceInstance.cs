@@ -34,5 +34,6 @@ namespace TypeFaster.GameLogic.Contracts.TypingRace
         void UpdatePreErrorInput();
         void TrySetToGameOverState(Object source, ElapsedEventArgs e);
         bool GameIsFinished();
+        void Notify();
     }
 }

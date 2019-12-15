@@ -19,6 +19,7 @@ namespace TypeFaster.GameLogic.Contracts.Input
         void InvokeEventDispatchEnableCommand();
         void IssueEventDispatchDisableCommand();
         void InvokeTryFinishGameCommand();
+        void InvokeSendNotificationCommand();
         void IssueUndoCommand();
         void InvokePreErrorInputUpdateCommand();
         void InvokeCommand(ICommand command);

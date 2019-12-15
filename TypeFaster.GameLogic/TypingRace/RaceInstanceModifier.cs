@@ -14,7 +14,7 @@ namespace TypeFaster.GameLogic.TypingRace
         public void InvokeModification()
         {
             if (_modificationCommand == null)
-                throw new ArgumentNullException($"{nameof(ICommand)} is null.");
+                throw new ArgumentNullException($"{nameof(_modificationCommand)} is null.");
 
             _commands.Add(_modificationCommand);
             _modificationCommand.Execute();

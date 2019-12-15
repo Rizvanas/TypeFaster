@@ -19,14 +19,12 @@ namespace TypeFaster.GameLogic.TypingRace.Commands
             {
                 _previousState = _typingRaceInstance.State;
                 _typingRaceInstance.ChangeState(new ErrorState());
-
             }
             else if (!_typingRaceInstance.UserHasMadeATypo() && _typingRaceInstance.IsInErrorState)
             {
                 _previousState = _typingRaceInstance.State;
                 _typingRaceInstance.ChangeState(new RunningState());
             }
-
         }
 
         public void Undo()

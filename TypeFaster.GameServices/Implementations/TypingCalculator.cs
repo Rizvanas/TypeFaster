@@ -11,6 +11,11 @@ namespace TypeFaster.GameServices.Implementations
             var wordsTyped = userInput.Length / 5;
             var elapsedMinutes = elapsedTime.TotalMinutes;
 
+            if (elapsedMinutes == 0)
+            {
+                throw new DivideByZeroException("Cannot divide by zero.");
+            }
+
             var netSpeed = (wordsTyped - totalErrorsMade) / elapsedMinutes;
             
             return Convert.ToInt32(Math.Truncate(netSpeed));
@@ -22,13 +27,20 @@ namespace TypeFaster.GameServices.Implementations
             var elapsedMinutes = elapsedTime.TotalMinutes;
 
             if (elapsedMinutes == 0)
+            {
                 throw new DivideByZeroException("Cannot divide by zero.");
+            }
 
             return Convert.ToInt32(Math.Truncate(wordsTyped / elapsedMinutes));
         }
 
         public decimal GetTypingAccuracy(string userInput, int totalErrorsMade)
         {
+            if (userInput.Length == 0)
+            {
+                throw new DivideByZeroException("User input length was zero");
+            }
+
             var totalEntries = userInput.Length / 5;
             var correctEntries = totalEntries - totalErrorsMade;
 
