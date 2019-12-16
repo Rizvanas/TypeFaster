@@ -1,6 +1,6 @@
 ﻿using System;
 using TypeFaster.Common.Extensions;
-using TypeFaster.GameLogic.Contracts.TypingRace;
+using TypeFaster.GameLogic.TypingRace.Commands;
 
 namespace TypeFaster.GameLogic.TypingRace.States
 {
@@ -10,27 +10,27 @@ namespace TypeFaster.GameLogic.TypingRace.States
         {
             if (keyInfo.Key == ConsoleKey.Escape)
             {
-                _inputHandler.IssueTimerToggleCommand();
-                _inputHandler.IssueEventDispatchDisableCommand();
-                _inputHandler.IssueGameStateChangingCommand(new PausedState());
+                IssueCommand(new TimerToggleCommand(_timeService));
+                IssueCommand(new EventDispatchDisableCommand(_timeService));
+                IssueCommand(new TypingRaceStateChangeCommand(_raceInstance, new PausedState()));
             }
             else if (keyInfo.Key == ConsoleKey.Backspace)
             {
-                _inputHandler.IssueLetterDeletionCommand();
-                _inputHandler.IssueErrorStateToggleCommand();
-                _inputHandler.InvokePreErrorInputUpdateCommand();
+                IssueCommand(new LetterDeletionCommand(_raceInstance));
+                IssueCommand(new ErrorStateToggleCommnand(_raceInstance));
+                IssueCommand(new PreErrorInputUpdateCommand(_raceInstance));
             }
             else if (keyInfo.KeyChar.IsLetterDigitSymbolOrWhiteSpace())
             {
-                _inputHandler.IssueLetterAdditionCommand(keyInfo);
-                _inputHandler.IssueErrorStateToggleCommand();
-                _inputHandler.InvokePreErrorInputUpdateCommand();
-                _inputHandler.IssueTyposUpdateCommand();
-                _inputHandler.InvokeTryFinishGameCommand();
+                IssueCommand(new LetterAdditionCommand(_raceInstance, keyInfo.KeyChar));
+                IssueCommand(new ErrorStateToggleCommnand(_raceInstance));
+                IssueCommand(new PreErrorInputUpdateCommand(_raceInstance));
+                IssueCommand(new TyposUpdateCommand(_raceInstance));
+                IssueCommand(new TryFinishGameCommand(_raceInstance, _timeService));
             }
         }
 
-        public override void Render(ITypingRaceInstance typingRaceInstance)
+        public override void Render()
         {
             _gameRenderer.RenderUserInput();
             _gameRenderer.RenderTimeLeft();

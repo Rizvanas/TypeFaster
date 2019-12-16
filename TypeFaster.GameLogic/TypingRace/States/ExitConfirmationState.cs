@@ -1,5 +1,5 @@
 ﻿using System;
-using TypeFaster.GameLogic.Contracts.TypingRace;
+using TypeFaster.GameLogic.TypingRace.Commands;
 using TypeFaster.UI.Enums;
 
 namespace TypeFaster.GameLogic.TypingRace.States
@@ -10,15 +10,15 @@ namespace TypeFaster.GameLogic.TypingRace.States
         {
             if (keyInfo.Key == ConsoleKey.Enter)
             {
-                _inputHandler.IssueGameStateChangingCommand(new ExitState());
+                IssueCommand(new TypingRaceStateChangeCommand(_raceInstance, new ExitState()));
             }
             else if (keyInfo.Key == ConsoleKey.Escape)
             {
-                _inputHandler.IssueUndoCommand();
+                UndoPreviousCommand();
             }
         }
 
-        public override void Render(ITypingRaceInstance typingRaceInstance)
+        public override void Render()
         {
             _gameRenderer.RenderGameWindow();
             _gameRenderer.RenderPrompt(UIPrompt.EXIT_CONFIRMATION);

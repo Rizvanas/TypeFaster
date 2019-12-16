@@ -16,7 +16,7 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
         private readonly TypingRaceData _data;
         private readonly ITimeService _timeService;
         private readonly ITypingCalculator _typingCalculator;
-        private readonly IInputHandler _inputHandler;
+        private readonly ICommandInvoker _invoker;
         private readonly IGameRenderer _gameRenderer;
         private readonly List<IObserver> _observers;
 
@@ -40,16 +40,13 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
             TypingRaceData typingRaceData,
             ITimeService timeService,
             ITypingCalculator typingCalculator,
-            IInputHandler inputHandler, 
+            ICommandInvoker commandInvoker, 
             IGameRenderer gameRenderer)
         {
             _data = typingRaceData;
             _timeService = timeService;
             _typingCalculator = typingCalculator;
-
-            _inputHandler = inputHandler;
-            _inputHandler.SetTypingRaceInstance(this);
-
+            _invoker = commandInvoker;
             _gameRenderer = gameRenderer;
             _gameRenderer.SetTypingRaceInstance(this);
 
@@ -67,15 +64,17 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
         {
             while (!Console.KeyAvailable)
             {
-                State.Render(this);
+                State.Render();
             }
         }
 
         public void ChangeState(TypingRaceState state)
         {
             State = state;
-            State.SetInputHandler(_inputHandler);
+            State.SetCommandInvoker(_invoker);
+            State.SetTimeService(_timeService);
             State.SetRenderer(_gameRenderer);
+            State.SetTypingRaceInstance(this);
         }
 
         public bool UserHasMadeATypo()

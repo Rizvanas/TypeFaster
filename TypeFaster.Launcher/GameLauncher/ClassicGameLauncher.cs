@@ -13,7 +13,7 @@ namespace TypeFaster.Launcher.GameLauncher
         private readonly ISentenceLoader _sentenceLoader;
         private readonly ITimeService _timeService;
         private readonly ITypingCalculator _typingCalculator;
-        private readonly IInputHandler _inputHandler;
+        private readonly ICommandInvoker _commandInvoker;
         private readonly IGameRenderer _gameRenderer;
 
         public ClassicGameLauncher(
@@ -21,14 +21,14 @@ namespace TypeFaster.Launcher.GameLauncher
             ISentenceLoader sentenceLoader, 
             ITimeService timeService, 
             ITypingCalculator typingCalculator, 
-            IInputHandler inputHandler, 
+            ICommandInvoker commandInvoker, 
             IGameRenderer gameRenderer) 
             : base(inputListener)
         {
             _sentenceLoader = sentenceLoader;
             _timeService = timeService;
             _typingCalculator = typingCalculator;
-            _inputHandler = inputHandler;
+            _commandInvoker = commandInvoker;
             _gameRenderer = gameRenderer;
         }
 
@@ -50,7 +50,7 @@ namespace TypeFaster.Launcher.GameLauncher
                 typingRaceData: typingRaceData,
                 timeService: _timeService,
                 typingCalculator: _typingCalculator, 
-                inputHandler: _inputHandler,
+                commandInvoker: _commandInvoker,
                 gameRenderer: _gameRenderer);
 
             classicRace.Subscribe(_gameRenderer);

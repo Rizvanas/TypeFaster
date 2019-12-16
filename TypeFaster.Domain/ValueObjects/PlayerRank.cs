@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace TypeFaster.Domain.ValueObjects
 {
     public enum PlayerRank

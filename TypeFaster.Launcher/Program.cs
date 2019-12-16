@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Timers;
 using TypeFaster.Common.services;
-using TypeFaster.GameLogic.Input.Handlers;
 using TypeFaster.GameLogic.Input.Listeners;
 using TypeFaster.GameLogic.Rendering;
 using TypeFaster.GameLogic.TypingRace;
@@ -25,7 +24,7 @@ namespace TypeFaster.Launcher
                 sentenceLoader: new SentenceLoader(sentenceRepository, rng), 
                 timeService: timeService,
                 typingCalculator: new TypingCalculator(),
-                inputHandler: new InputHandler(timeService, new RaceInstanceModifier()),
+                commandInvoker: new CommandInvoker(),
                 gameRenderer: new GameRenderer());
 
             gameLauncher.Launch();

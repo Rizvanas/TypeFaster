@@ -7,8 +7,7 @@ namespace TypeFaster.GameLogic.Input.Listeners
     {
         public ConsoleKeyInfo Listen()
         {
-            var keypress = Console.ReadKey(true);
-            return keypress;
+            return Console.ReadKey(true);
         }
     }
 }

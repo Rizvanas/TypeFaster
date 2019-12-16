@@ -1,5 +1,4 @@
 ﻿using System;
-using TypeFaster.GameLogic.Contracts.TypingRace;
 
 namespace TypeFaster.GameLogic.TypingRace.States
 {
@@ -9,7 +8,7 @@ namespace TypeFaster.GameLogic.TypingRace.States
         {
         }
 
-        public override void Render(ITypingRaceInstance typingRaceInstance)
+        public override void Render()
         {
         }
     }

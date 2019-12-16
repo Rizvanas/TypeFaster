@@ -1,6 +1,6 @@
 ﻿using System;
 using TypeFaster.Common.Extensions;
-using TypeFaster.GameLogic.Contracts.TypingRace;
+using TypeFaster.GameLogic.TypingRace.Commands;
 
 namespace TypeFaster.GameLogic.TypingRace.States
 {
@@ -10,23 +10,23 @@ namespace TypeFaster.GameLogic.TypingRace.States
         {
             if (keyInfo.KeyChar.IsLetterDigitSymbolOrWhiteSpace())
             {
-                _inputHandler.IssueLetterAdditionCommand(keyInfo);
+                IssueCommand(new LetterAdditionCommand(_raceInstance, keyInfo.KeyChar));
             }
             else if (keyInfo.Key == ConsoleKey.Backspace)
             {
-                _inputHandler.IssueErrorDeletionCommand();
-                _inputHandler.IssueErrorStateToggleCommand();
-                _inputHandler.InvokePreErrorInputUpdateCommand();
+                IssueCommand(new ErrorDeletionCommand(_raceInstance));
+                IssueCommand(new ErrorStateToggleCommnand(_raceInstance));
+                IssueCommand(new PreErrorInputUpdateCommand(_raceInstance));
             }
             else if (keyInfo.Key == ConsoleKey.Escape)
             {
-                _inputHandler.IssueTimerToggleCommand();
-                _inputHandler.IssueEventDispatchDisableCommand();
-                _inputHandler.IssueGameStateChangingCommand(new PausedState());
+                IssueCommand(new TimerToggleCommand(_timeService));
+                IssueCommand(new EventDispatchDisableCommand(_timeService));
+                IssueCommand(new TypingRaceStateChangeCommand(_raceInstance, new PausedState()));
             }
         }
 
-        public override void Render(ITypingRaceInstance typingRaceInstance)
+        public override void Render()
         {
             _gameRenderer.RenderUserInput();
             _gameRenderer.RenderPlayerTypingSpeed();
