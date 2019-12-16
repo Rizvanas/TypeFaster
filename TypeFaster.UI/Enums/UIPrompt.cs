@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace TypeFaster.UI.Enums
 {
     public static class UIPrompt
