@@ -32,10 +32,8 @@ namespace TypeFaster.GameLogic.Rendering
             _typosBox = new TextBox(0, _typingSpeedBox.TopPos + 3, 0);
         }
 
-        public void SetTypingRaceInstance(ITypingRaceInstance typingRaceInstance)
-        {
+        public void SetTypingRaceInstance(ITypingRaceInstance typingRaceInstance) => 
             _typingRaceInstance = typingRaceInstance;
-        }
 
         public void RenderGameWindow()
         {
@@ -43,15 +41,11 @@ namespace TypeFaster.GameLogic.Rendering
             _gameWindow.Render("");
         }
 
-        public void RenderPrompt(string prompt)
-        {
+        public void RenderPrompt(string prompt) => 
             _promptWindow.Render(prompt);
-        }
 
-        public void RenderPlayerTypingSpeed()
-        { 
+        public void RenderPlayerTypingSpeed() => 
             _typingSpeedIndicator.Render($"Typing speed: {_typingRaceInstance.TypingSpeed.ToString()} wpm");
-        }
 
         public void RenderTimeLeft()
         {
@@ -80,10 +74,8 @@ namespace TypeFaster.GameLogic.Rendering
             }
         }
 
-        public void Update(TypingRaceState typingRaceState)
-        {
-            Console.Clear();
-        }
+        public void Update(TypingRaceState typingRaceState) 
+            => Console.Clear();
 
         private void SetUserInputColor()
         {

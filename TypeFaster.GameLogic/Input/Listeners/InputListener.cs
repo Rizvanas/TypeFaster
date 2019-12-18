@@ -5,9 +5,6 @@ namespace TypeFaster.GameLogic.Input.Listeners
 {
     public class InputListener : IInputListener
     {
-        public ConsoleKeyInfo Listen()
-        {
-            return Console.ReadKey(true);
-        }
+        public ConsoleKeyInfo Listen() => Console.ReadKey(true);
     }
 }

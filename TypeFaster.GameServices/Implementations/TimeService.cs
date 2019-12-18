@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Timers;
 using TypeFaster.Common.Contracts;
 using TypeFaster.Domain.Entities;
@@ -21,55 +20,28 @@ namespace TypeFaster.GameServices.Implementations
             _timer = timer;
         }
 
-        public void StartGameTimer()
-        {
-            _stopwatch.Start();
-        }
+        public void StartGameTimer() => _stopwatch.Start();
 
-        public void StopGameTimer()
-        {
-            _stopwatch.Stop();
-        }
+        public void StopGameTimer() => _stopwatch.Stop();
 
-        public void RestartGameTimer()
-        {
-            _stopwatch.Restart();
-        }
+        public void RestartGameTimer() => _stopwatch.Restart();
 
-        public TimeSpan GetGameTimeLeft(TimeSpan duration)
-        {
-            return duration - _stopwatch.Elapsed;
-        }
+        public TimeSpan GetGameTimeLeft(TimeSpan duration) => duration - _stopwatch.Elapsed;
 
-        public TimeSpan GetGameTimeElapsed()
-        {
-            return _stopwatch.Elapsed;
-        }
+        public TimeSpan GetGameTimeElapsed() => _stopwatch.Elapsed;
+
+        public void SetTimedEventDispatchInterval(int interval) => _timer.Interval = interval;
+
+        public void AddTimedEvent(ElapsedEventHandler timedEvent) => _timer.Elapsed = timedEvent;
+
+        public void EnableEventDispatching() => _timer.Enabled = true;
+
+        public void DisableEventDispatching() => _timer.Enabled = false;
 
         public TimeSpan CalculateGameDuration(Sentence sentence)
         {
             var sentenceWordCount = sentence.Words.Split().Length;
             return TimeSpan.FromSeconds(sentenceWordCount * 3);
-        }
-
-        public void SetTimedEventDispatchInterval(int interval)
-        {
-            _timer.Interval = interval;
-        }
-        
-        public void AddTimedEvent(ElapsedEventHandler timedEvent)
-        {
-            _timer.Elapsed = timedEvent;
-        }
-
-        public void EnableEventDispatching()
-        {
-            _timer.Enabled = true; 
-        }
-
-        public void DisableEventDispatching()
-        {
-            _timer.Enabled = false;
         }
     }
 }

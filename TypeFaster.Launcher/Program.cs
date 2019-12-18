@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Timers;
 using TypeFaster.Common;
 using TypeFaster.Common.services;
 using TypeFaster.GameLogic.Input.Listeners;

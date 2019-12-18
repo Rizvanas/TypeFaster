@@ -25,15 +25,10 @@ namespace TypeFaster.Persistence.Repositories
 
         public int SentencesCount { get => _sentences.Count; }
 
-        public IList<Sentence> GetAllSentences()
-        {
-            return _sentences;
-        }
+        public IList<Sentence> GetAllSentences() => _sentences;
 
-        public Sentence GetSentenceById(int sentence_id)
-        {
-            return _sentences.SingleOrDefault(s => s.Id == sentence_id);
-        }
+        public Sentence GetSentenceById(int sentence_id) => 
+            _sentences.SingleOrDefault(s => s.Id == sentence_id);
 
         private  IList<Sentence> ParseFileTextToSentenceList(string text)
         {
