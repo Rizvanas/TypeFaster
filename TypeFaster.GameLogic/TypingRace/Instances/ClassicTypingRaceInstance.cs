@@ -73,6 +73,9 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
 
         public void ChangeState(TypingRaceState state)
         {
+            if (state == null)
+                throw new ArgumentNullException();
+
             State = state;
             State.SetCommandInvoker(_invoker);
             State.SetTimeService(_timeService);
@@ -146,11 +149,17 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
 
         public void UpdatePreErrorInput()
         {
+            if (PreErrorInput == null || UserInput == null)
+                throw new InvalidOperationException();
+
             PreErrorInput = UserInput;
         }
 
         public bool GameIsFinished()
         {
+            if (Sentence == null || UserInput == null)
+                throw new InvalidOperationException();
+
             return Sentence == UserInput;
         }
 
@@ -161,18 +170,14 @@ namespace TypeFaster.GameLogic.TypingRace.Instances
 
         public string Sentence
         {
-            get { return _sentence; }
+            get => _sentence;
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                {
                     throw new ArgumentOutOfRangeException($"Argument cannot be null or whitespace.");
-                }
 
                 if (!string.IsNullOrWhiteSpace(_sentence))
-                {
                     throw new ArgumentOutOfRangeException($"The value of {nameof(_sentence)} has been already set.");
-                }
 
                 _sentence = value;
             }

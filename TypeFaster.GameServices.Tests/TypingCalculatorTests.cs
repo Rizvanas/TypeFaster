@@ -101,7 +101,7 @@ namespace TypeFaster.GameServices.Tests
         public void GetNetTypingSpeedThrowsDivideByZeroExceptionWhenElapsedTimeIs0(
             [ValueSource("_typingTestDataSet2")]TypingTestData testData)
         {
-            Should.Throw<Exception>(() => _typingCalculator.GetNetTypingSpeed(
+            Should.Throw<DivideByZeroException>(() => _typingCalculator.GetNetTypingSpeed(
                     testData.UserInput,
                     testData.ElapsedTime,
                     testData.TotalErrorsMade));
@@ -111,7 +111,7 @@ namespace TypeFaster.GameServices.Tests
         public void GetGrossTypingSpeedThrowsDivideByZeroExceptionWhenElapsedTimeIs0(
             [ValueSource("_typingTestDataSet2")]TypingTestData testData)
         {
-            Should.Throw<Exception>(() => _typingCalculator.GetGrossTypingSpeed(
+            Should.Throw<DivideByZeroException>(() => _typingCalculator.GetGrossTypingSpeed(
                     testData.UserInput,
                     testData.ElapsedTime));
         }
@@ -120,7 +120,7 @@ namespace TypeFaster.GameServices.Tests
         public void GetTypingAccuracyThrowsDivideByZeroExceptionWhenUserInputLenghtIs0(
             [ValueSource("_typingTestDataSet2")]TypingTestData testData)
         {
-            Should.Throw<Exception>(() => _typingCalculator.GetTypingAccuracy(
+            Should.Throw<DivideByZeroException>(() => _typingCalculator.GetTypingAccuracy(
                     testData.UserInput,
                     testData.TotalErrorsMade));
         }
