@@ -4,7 +4,7 @@ using TypeFaster.GameServices.Contracts;
 
 namespace TypeFaster.GameLogic.TypingRace.Commands
 {
-    public class TryFinishGameCommand : ICommand
+    public class FinishGameCommand : ICommand
     {
         private readonly ITypingRaceInstance _typingRaceInstance;
         private readonly ITimeService _timeService;
@@ -13,7 +13,7 @@ namespace TypeFaster.GameLogic.TypingRace.Commands
         private bool _eventDispatchingWasEnabled;
 
 
-        public TryFinishGameCommand(ITypingRaceInstance typingRaceInstance, ITimeService timeService)
+        public FinishGameCommand(ITypingRaceInstance typingRaceInstance, ITimeService timeService)
         {
             _typingRaceInstance = typingRaceInstance;
             _timeService = timeService; 
@@ -21,18 +21,15 @@ namespace TypeFaster.GameLogic.TypingRace.Commands
 
         public void Execute()
         {
-            if (_typingRaceInstance.GameIsFinished())
-            {
-                _timerWasRunning = _timeService.TimerIsRunning;
-                _eventDispatchingWasEnabled = _timeService.EventDispatchingEnabled;
-                _previousState = _typingRaceInstance.State;
+            _timerWasRunning = _timeService.TimerIsRunning;
+            _eventDispatchingWasEnabled = _timeService.EventDispatchingEnabled;
+            _previousState = _typingRaceInstance.State;
 
-                _timeService.StopGameTimer();
-                _timeService.DisableEventDispatching();
-                _typingRaceInstance.UpdateTypingAccuracy();
-                _typingRaceInstance.ChangeState(new FinishedState());
-                _typingRaceInstance.Notify();
-            }
+            _timeService.StopGameTimer();
+            _timeService.DisableEventDispatching();
+            _typingRaceInstance.UpdateTypingAccuracy();
+            _typingRaceInstance.ChangeState(new FinishedState());
+            _typingRaceInstance.Notify();
         }
 
         public void Undo()

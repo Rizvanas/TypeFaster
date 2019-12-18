@@ -9,8 +9,4 @@
     <ProjectReference Include="..\TypeFaster.UI\TypeFaster.UI.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Input\Handlers\" />
-  </ItemGroup>
-
 </Project>

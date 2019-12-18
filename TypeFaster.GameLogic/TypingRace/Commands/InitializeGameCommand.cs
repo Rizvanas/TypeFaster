@@ -3,12 +3,12 @@ using TypeFaster.GameServices.Contracts;
 
 namespace TypeFaster.GameLogic.TypingRace.Commands
 {
-    public class GameInitializationCommand : ICommand
+    public class InitializeGameCommand : ICommand
     {
         private readonly ITypingRaceInstance _typingRaceInstance;
         private readonly ITimeService _timeService;
 
-        public GameInitializationCommand(ITypingRaceInstance typingRaceInstance, ITimeService timeService)
+        public InitializeGameCommand(ITypingRaceInstance typingRaceInstance, ITimeService timeService)
         {
             _typingRaceInstance = typingRaceInstance;
             _timeService = timeService;

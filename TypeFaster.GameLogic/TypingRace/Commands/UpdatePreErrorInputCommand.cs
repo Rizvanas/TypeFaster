@@ -2,21 +2,18 @@
 
 namespace TypeFaster.GameLogic.TypingRace.Commands
 {
-    public class PreErrorInputUpdateCommand : ICommand
+    public class UpdatePreErrorInputCommand : ICommand
     {
         private readonly ITypingRaceInstance _typingRaceInstance;
 
-        public PreErrorInputUpdateCommand(ITypingRaceInstance typingRaceInstance)
+        public UpdatePreErrorInputCommand(ITypingRaceInstance typingRaceInstance)
         {
             _typingRaceInstance = typingRaceInstance;
         }
 
         public void Execute()
         {
-            if (!_typingRaceInstance.IsInErrorState)
-            {
-                _typingRaceInstance.UpdatePreErrorInput();
-            }
+            _typingRaceInstance.UpdatePreErrorInput();
         }
 
         public void Undo()

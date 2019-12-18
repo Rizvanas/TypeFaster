@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using TypeFaster.Common.Extensions;
 using TypeFaster.GameLogic.TypingRace.Commands;
 
@@ -10,23 +11,15 @@ namespace TypeFaster.GameLogic.TypingRace.States
         {
             if (keyInfo.Key == ConsoleKey.Escape)
             {
-                IssueCommand(new TimerToggleCommand(_timeService));
-                IssueCommand(new EventDispatchDisableCommand(_timeService));
-                IssueCommand(new TypingRaceStateChangeCommand(_raceInstance, new PausedState()));
+                IssueCommand(new PauseGameCommand(_raceInstance, _timeService));
             }
             else if (keyInfo.Key == ConsoleKey.Backspace)
             {
-                IssueCommand(new LetterDeletionCommand(_raceInstance));
-                IssueCommand(new ErrorStateToggleCommnand(_raceInstance));
-                IssueCommand(new PreErrorInputUpdateCommand(_raceInstance));
+                HandleBackspace();
             }
             else if (keyInfo.KeyChar.IsLetterDigitSymbolOrWhiteSpace())
             {
-                IssueCommand(new LetterAdditionCommand(_raceInstance, keyInfo.KeyChar));
-                IssueCommand(new ErrorStateToggleCommnand(_raceInstance));
-                IssueCommand(new PreErrorInputUpdateCommand(_raceInstance));
-                IssueCommand(new TyposUpdateCommand(_raceInstance));
-                IssueCommand(new TryFinishGameCommand(_raceInstance, _timeService));
+                HandLetterDigitOrSymbol(keyInfo.KeyChar);
             }
         }
 
@@ -36,6 +29,38 @@ namespace TypeFaster.GameLogic.TypingRace.States
             _gameRenderer.RenderTimeLeft();
             _gameRenderer.RenderPlayerTypingSpeed();
             _gameRenderer.RenderGameWindow();
+        }
+
+        private void HandLetterDigitOrSymbol(char keyChar)
+        {
+            IssueCommand(new AddLetterCommand(_raceInstance, keyChar));
+            if (_raceInstance.UserHasMadeATypo())
+            {
+                IssueCommand(new TypingRaceStateChangeCommand(_raceInstance, new ErrorState()));
+                IssueCommand(new TyposUpdateCommand(_raceInstance));
+            }
+            else
+            {
+                IssueCommand(new UpdatePreErrorInputCommand(_raceInstance));
+                IfGameIsFinishedEndGame();
+            }
+        }
+
+        private void HandleBackspace()
+        {
+            if (_raceInstance.UserInput.Length != 0 && _raceInstance.UserInput.Last() != ' ')
+            {
+                IssueCommand(new DeleteLetterCommand(_raceInstance));
+                IssueCommand(new UpdatePreErrorInputCommand(_raceInstance));
+            }
+        }
+
+        private void IfGameIsFinishedEndGame()
+        {
+            if (_raceInstance.GameIsFinished())
+            {
+                IssueCommand(new FinishGameCommand(_raceInstance, _timeService));
+            }
         }
     }
 }

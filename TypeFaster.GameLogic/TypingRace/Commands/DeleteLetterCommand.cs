@@ -3,20 +3,17 @@ using TypeFaster.GameLogic.Contracts.TypingRace;
 
 namespace TypeFaster.GameLogic.TypingRace.Commands
 {
-    public class LetterDeletionCommand : ICommand
+    public class DeleteLetterCommand : ICommand
     {
         private readonly ITypingRaceInstance _typingRaceInstance;
         private char _deletedLetter;
 
-        public LetterDeletionCommand(ITypingRaceInstance typingRaceInstance) => _typingRaceInstance = typingRaceInstance;
+        public DeleteLetterCommand(ITypingRaceInstance typingRaceInstance) => _typingRaceInstance = typingRaceInstance;
 
         public void Execute() 
         {
-            if (_typingRaceInstance.UserInput.Length != 0 && _typingRaceInstance.UserInput.Last() != ' ')
-            {
-                _deletedLetter = _typingRaceInstance.UserInput.LastOrDefault();
-                _typingRaceInstance.DeleteLastLetter();
-            }
+            _deletedLetter = _typingRaceInstance.UserInput.LastOrDefault();
+            _typingRaceInstance.DeleteLastLetter();
         }
 
         public void Undo()

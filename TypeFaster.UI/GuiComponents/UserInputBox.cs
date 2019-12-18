@@ -48,12 +48,12 @@ namespace TypeFaster.UI.GuiComponents
 
                 Console.BackgroundColor = MatchingInputColor;
                 Console.ForegroundColor = ConsoleColor.Black;
-
                 WriteAt(data[i].Substring(0, preErrorSplitPoint), LeftPos, TopPos, 1, i + 1);
 
                 Console.BackgroundColor = ErrorColor;
                 Console.ForegroundColor = ConsoleColor.White;
-                WriteAt(data[i].Substring(preErrorSplitPoint, inputSplitPoint - preErrorSplitPoint), LeftPos + preErrorSplitPoint, TopPos, 1, i + 1);
+                WriteAt(data[i].Substring(preErrorSplitPoint, inputSplitPoint - preErrorSplitPoint),
+                    LeftPos + preErrorSplitPoint, TopPos, 1, i + 1);
 
                 Console.BackgroundColor = ConsoleColor.Black;
                 WriteAt(data[i].Substring(inputSplitPoint), LeftPos + inputSplitPoint, TopPos, 1, i + 1);

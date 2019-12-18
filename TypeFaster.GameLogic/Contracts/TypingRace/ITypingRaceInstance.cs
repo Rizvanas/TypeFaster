@@ -13,12 +13,8 @@ namespace TypeFaster.GameLogic.Contracts.TypingRace
         IDictionary<int, string> Typos { get; }
         TimeSpan GameTimeLeft { get; }
         TypingRaceState State { get; }
-        bool IsInRunningState { get; }
-        bool IsInErrorState { get; }
-        bool IsInExitState { get; }
-        bool IsInPausedState { get; }
-        bool IsInFinishedState { get; }
-        bool IsInWaitingForRestartState { get; }
+        bool ShouldExit { get; set; }
+        bool ShouldRestart { get; set; }
         decimal TypingAccuracy { get; }
         int TypingSpeed { get; }
 

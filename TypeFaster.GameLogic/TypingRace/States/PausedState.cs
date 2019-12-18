@@ -11,13 +11,11 @@ namespace TypeFaster.GameLogic.TypingRace.States
             if (keyInfo.Key == ConsoleKey.Escape)
             {
                 UndoPreviousCommand();
-
-                IssueCommand(new TimerToggleCommand(_timeService));
-                IssueCommand(new EventDispatchEnableCommand(_timeService));
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
                 IssueCommand(new TypingRaceStateChangeCommand(_raceInstance, new ExitConfirmationState()));
+                _raceInstance.Notify();
             }
         }
 

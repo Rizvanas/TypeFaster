@@ -13,7 +13,6 @@ namespace TypeFaster.GameLogic.TypingRace.States
         protected ITypingRaceInstance _raceInstance;
         protected ITimeService _timeService;
 
-
         public void SetCommandInvoker(ICommandInvoker invoker)
         {
             _invoker = invoker;
@@ -47,6 +46,5 @@ namespace TypeFaster.GameLogic.TypingRace.States
 
         public abstract void HandleInput(ConsoleKeyInfo keyInfo);
         public abstract void Render();
-
     }
 }

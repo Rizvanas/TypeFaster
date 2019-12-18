@@ -11,10 +11,13 @@ namespace TypeFaster.GameLogic.TypingRace.States
             if (keyInfo.Key == ConsoleKey.Enter)
             {
                 IssueCommand(new TypingRaceStateChangeCommand(_raceInstance, new ExitState()));
+                _raceInstance.ShouldExit = true;
+                _raceInstance.Notify();
             }
             else if (keyInfo.Key == ConsoleKey.Escape)
             {
                 UndoPreviousCommand();
+                _raceInstance.Notify();
             }
         }
 

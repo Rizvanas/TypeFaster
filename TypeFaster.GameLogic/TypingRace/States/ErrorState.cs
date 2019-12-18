@@ -10,19 +10,15 @@ namespace TypeFaster.GameLogic.TypingRace.States
         {
             if (keyInfo.KeyChar.IsLetterDigitSymbolOrWhiteSpace())
             {
-                IssueCommand(new LetterAdditionCommand(_raceInstance, keyInfo.KeyChar));
+                IssueCommand(new AddLetterCommand(_raceInstance, keyInfo.KeyChar));
             }
             else if (keyInfo.Key == ConsoleKey.Backspace)
             {
-                IssueCommand(new ErrorDeletionCommand(_raceInstance));
-                IssueCommand(new ErrorStateToggleCommnand(_raceInstance));
-                IssueCommand(new PreErrorInputUpdateCommand(_raceInstance));
+                HandleBackspace();
             }
             else if (keyInfo.Key == ConsoleKey.Escape)
             {
-                IssueCommand(new TimerToggleCommand(_timeService));
-                IssueCommand(new EventDispatchDisableCommand(_timeService));
-                IssueCommand(new TypingRaceStateChangeCommand(_raceInstance, new PausedState()));
+                IssueCommand(new PauseGameCommand(_raceInstance, _timeService));
             }
         }
 
@@ -32,6 +28,15 @@ namespace TypeFaster.GameLogic.TypingRace.States
             _gameRenderer.RenderPlayerTypingSpeed();
             _gameRenderer.RenderTimeLeft();
             _gameRenderer.RenderGameWindow();
+        }
+
+        private void HandleBackspace()
+        {
+            IssueCommand(new DeleteLetterCommand(_raceInstance));
+            if (!_raceInstance.UserHasMadeATypo())
+            {
+                IssueCommand(new TypingRaceStateChangeCommand(_raceInstance, new RunningState()));
+            }
         }
     }
 }

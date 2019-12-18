@@ -1,5 +1,6 @@
 ﻿using TypeFaster.GameLogic.Contracts.Input;
 using TypeFaster.GameLogic.Contracts.TypingRace;
+using TypeFaster.GameLogic.TypingRace.States;
 
 namespace TypeFaster.Launcher.GameLauncher
 {
@@ -18,12 +19,12 @@ namespace TypeFaster.Launcher.GameLauncher
         {
             var _typingRace = CreateTypingRaceInstace();
 
-            while(!_typingRace.IsInExitState)
+            while(!_typingRace.ShouldExit)
             {
                 _typingRace.Render();
                 _typingRace.HandleUserInput(_inputListener.Listen());
 
-                if (_typingRace.IsInWaitingForRestartState)
+                if (_typingRace.ShouldRestart)
                     _typingRace = CreateTypingRaceInstace();
             }
         }

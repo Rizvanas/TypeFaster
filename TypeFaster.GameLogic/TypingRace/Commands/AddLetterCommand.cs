@@ -2,15 +2,13 @@
 
 namespace TypeFaster.GameLogic.TypingRace.Commands
 {
-    public class LetterAdditionCommand : ICommand
+    public class AddLetterCommand : ICommand
     {
         private readonly ITypingRaceInstance _typingRaceInstance;
 
         private readonly char _letter;
 
-        public LetterAdditionCommand(
-            ITypingRaceInstance typingRaceInstance,
-            char letter)
+        public AddLetterCommand(ITypingRaceInstance typingRaceInstance, char letter)
         {
             _typingRaceInstance = typingRaceInstance;
             _letter = letter;
@@ -18,7 +16,10 @@ namespace TypeFaster.GameLogic.TypingRace.Commands
 
         public void Execute() 
         {
-            _typingRaceInstance.AddNewLetter(_letter);
+            if (_typingRaceInstance.UserInput.Length < _typingRaceInstance.Sentence.Length)
+            {
+                _typingRaceInstance.AddNewLetter(_letter);
+            }
         }
 
         public void Undo()

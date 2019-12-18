@@ -13,7 +13,6 @@ namespace TypeFaster.GameLogic.TypingRace.Commands
 
         public void Execute()
         {
-            if (_typingRaceInstance.IsInErrorState)
                 _typingRaceInstance.UpdateTypos();
         }
 

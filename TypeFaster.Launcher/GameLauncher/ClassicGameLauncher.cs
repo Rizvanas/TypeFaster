@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using TypeFaster.Domain.Entities;
-using TypeFaster.GameLogic.Contracts.Input;
+﻿using TypeFaster.GameLogic.Contracts.Input;
 using TypeFaster.GameLogic.Contracts.Rendering;
 using TypeFaster.GameLogic.Contracts.TypingRace;
 using TypeFaster.GameLogic.TypingRace.Instances;
@@ -36,20 +34,12 @@ namespace TypeFaster.Launcher.GameLauncher
         {
             var randomSentence = _sentenceLoader.GetNextRandomSentence();
 
-            var typingRaceData = new TypingRaceData
-            {
-                Title = "Classic Game",
-                Sentence = randomSentence,
-                UserInput = "",
-                PreErrorInput = "",
-                Typos = new Dictionary<int, string>(),
-                Duration = _timeService.CalculateGameDuration(randomSentence)
-            };
-
             var classicRace = new ClassicTypingRaceInstance(
-                typingRaceData: typingRaceData,
+                title: "Classic Game",
+                sentence: randomSentence.Words,
+                duration: _timeService.CalculateGameDuration(randomSentence),
                 timeService: _timeService,
-                typingCalculator: _typingCalculator, 
+                typingCalculator: _typingCalculator,
                 commandInvoker: _commandInvoker,
                 gameRenderer: _gameRenderer);
 
