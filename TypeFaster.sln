@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeFaster.UI", "TypeFaster
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeFaster.Launcher", "TypeFaster.Launcher\TypeFaster.Launcher.csproj", "{0F7CDC6A-FDE0-434A-859B-6DABD047808E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeFaster.GameLogic", "TypeFaster.GameLogic\TypeFaster.GameLogic.csproj", "{105B4E67-3D7A-4C23-817C-21355F893EE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeFaster.GameLogic", "TypeFaster.GameLogic\TypeFaster.GameLogic.csproj", "{105B4E67-3D7A-4C23-817C-21355F893EE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
