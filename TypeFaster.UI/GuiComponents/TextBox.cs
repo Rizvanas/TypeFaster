@@ -43,6 +43,13 @@ namespace TypeFaster.UI.GuiComponents
             }
         }
 
+        protected virtual void WriteAtWithColor(string s, int left, int top, int x, int y, ConsoleColor fgColor, ConsoleColor bgColor)
+        {
+            Console.ForegroundColor = fgColor;
+            Console.BackgroundColor = bgColor;
+            WriteAt(s, left, top, x, y);
+        }
+
         protected virtual void DrawTopAndBottom()
         {
             for (int i = 0; i < Width; i++)
