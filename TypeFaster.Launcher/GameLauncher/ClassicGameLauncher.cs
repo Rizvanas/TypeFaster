@@ -1,6 +1,7 @@
 ﻿using TypeFaster.GameLogic.Contracts.Input;
 using TypeFaster.GameLogic.Contracts.Rendering;
 using TypeFaster.GameLogic.Contracts.TypingRace;
+using TypeFaster.GameLogic.Rendering;
 using TypeFaster.GameLogic.TypingRace.Instances;
 using TypeFaster.GameServices.Contracts;
 
@@ -41,7 +42,7 @@ namespace TypeFaster.Launcher.GameLauncher
                 timeService: _timeService,
                 typingCalculator: _typingCalculator,
                 commandInvoker: _commandInvoker,
-                gameRenderer: _gameRenderer);
+                gameRenderer: new GameRenderer());
 
             classicRace.Subscribe(_gameRenderer);
 
